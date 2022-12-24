@@ -23,6 +23,29 @@ func New() *cfg {
 	return &cfg{osCfg{}}
 }
 
+type Config struct {
+	Server Server
+}
+
+type Server struct {
+	Hostname string
+	Port     int
+}
+
+const (
+	cHostname = "HOSTNAME"
+	cPort     = "PORT"
+)
+
+func (cfg *cfg) All() Config {
+	return Config{
+		Server: Server{
+			Hostname: cfg.envString(cHostname, ""),
+			Port:     cfg.envInt(cPort, 1323),
+		},
+	}
+}
+
 func (cfg *cfg) SetEnvGetter(overrideEnvGetter envGetter) {
 	cfg.envGetter = overrideEnvGetter
 }

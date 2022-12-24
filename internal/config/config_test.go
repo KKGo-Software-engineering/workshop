@@ -63,3 +63,46 @@ func TestIntEnvironment(t *testing.T) {
 		})
 	}
 }
+
+func TestGetAllConfig(t *testing.T) {
+	cfg := New()
+	tests := []struct {
+		name   string
+		mCfgFn func() *mockOsCfg
+		want   Config
+	}{
+		{"no config env should return default config", func() *mockOsCfg {
+			mCfg := new(mockOsCfg)
+			mCfg.On("Getenv", cHostname).Return("")
+			mCfg.On("Getenv", cPort).Return("")
+			return mCfg
+		}, Config{Server: Server{Port: 1323}}},
+		{"config hostname env should return as changed", func() *mockOsCfg {
+			mCfg := new(mockOsCfg)
+			mCfg.On("Getenv", cHostname).Return("test-hostname")
+			mCfg.On("Getenv", cPort).Return("")
+			return mCfg
+		}, Config{Server: Server{Hostname: "test-hostname", Port: 1323}}},
+		{"config port env should return as changed", func() *mockOsCfg {
+			mCfg := new(mockOsCfg)
+			mCfg.On("Getenv", cHostname).Return("")
+			mCfg.On("Getenv", cPort).Return("4444")
+			return mCfg
+		}, Config{Server: Server{Hostname: "", Port: 4444}}},
+		{"config hostname and port env should return as changed", func() *mockOsCfg {
+			mCfg := new(mockOsCfg)
+			mCfg.On("Getenv", cHostname).Return("test-hostname")
+			mCfg.On("Getenv", cPort).Return("4444")
+			return mCfg
+		}, Config{Server: Server{Hostname: "test-hostname", Port: 4444}}},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			mCfg := tc.mCfgFn()
+			cfg.SetEnvGetter(mCfg)
+			got := cfg.All()
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
