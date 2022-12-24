@@ -64,6 +64,30 @@ func TestIntEnvironment(t *testing.T) {
 	}
 }
 
+func TestBoolEnvironment(t *testing.T) {
+	cfg := New()
+	tests := []struct {
+		name         string
+		key          string
+		defaultValue bool
+		osValue      string
+		want         bool
+	}{
+		{"get bool from environment", "test-key", true, "FALSE", false},
+		{"get defualt bool if not config", "", true, "", true},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			mCfg := new(mockOsCfg)
+			mCfg.On("Getenv", tc.key).Return(tc.osValue)
+			cfg.SetEnvGetter(mCfg)
+			got := cfg.envBool(tc.key, tc.defaultValue)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}
+
 func TestGetAllConfig(t *testing.T) {
 	cfg := New()
 	tests := []struct {
