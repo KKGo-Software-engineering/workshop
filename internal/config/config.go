@@ -71,10 +71,6 @@ func (cfg *cfg) envString(key, defaultValue string) string {
 func (cfg *cfg) envInt(key string, defaultValue int) int {
 	value := cfg.envGetter.Getenv(key)
 
-	if value == "" {
-		return defaultValue
-	}
-
 	intValue, err := strconv.Atoi(value)
 	if err != nil {
 		return defaultValue
@@ -85,10 +81,6 @@ func (cfg *cfg) envInt(key string, defaultValue int) int {
 
 func (cfg *cfg) envBool(key string, defaultValue bool) bool {
 	value := cfg.envGetter.Getenv(key)
-
-	if value == "" {
-		return defaultValue
-	}
 
 	boolValue, err := strconv.ParseBool(value)
 	if err != nil {
