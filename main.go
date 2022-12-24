@@ -9,12 +9,16 @@ import (
 )
 
 func main() {
+	cfg := config.New().All()
 	e := echo.New()
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+	e.GET("/features", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, cfg.FeatureFlag)
+	})
 
-	cfg := config.New().All()
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
 	e.Logger.Fatal(e.Start(addr))
 }
