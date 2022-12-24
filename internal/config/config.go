@@ -24,7 +24,8 @@ func New() *cfg {
 }
 
 type Config struct {
-	Server Server
+	Server      Server
+	FeatureFlag FeatureFlag
 }
 
 type Server struct {
@@ -32,9 +33,15 @@ type Server struct {
 	Port     int
 }
 
+type FeatureFlag struct {
+	IsLimitMaxSpend bool
+}
+
 const (
 	cHostname = "HOSTNAME"
 	cPort     = "PORT"
+
+	cFlagIsLimitMaxSpend = "FLAG_IS_LIMIT_MAX_SPEND"
 )
 
 func (cfg *cfg) All() Config {
@@ -42,6 +49,9 @@ func (cfg *cfg) All() Config {
 		Server: Server{
 			Hostname: cfg.envString(cHostname, ""),
 			Port:     cfg.envInt(cPort, 1323),
+		},
+		FeatureFlag: FeatureFlag{
+			IsLimitMaxSpend: cfg.envBool(cFlagIsLimitMaxSpend, false),
 		},
 	}
 }

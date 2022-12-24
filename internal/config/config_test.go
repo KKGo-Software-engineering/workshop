@@ -99,26 +99,43 @@ func TestGetAllConfig(t *testing.T) {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("")
 			mCfg.On("Getenv", cPort).Return("")
+			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
 			return mCfg
 		}, Config{Server: Server{Port: 1323}}},
 		{"config hostname env should return as changed", func() *mockOsCfg {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
 			mCfg.On("Getenv", cPort).Return("")
+			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
 			return mCfg
 		}, Config{Server: Server{Hostname: "test-hostname", Port: 1323}}},
 		{"config port env should return as changed", func() *mockOsCfg {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("")
 			mCfg.On("Getenv", cPort).Return("4444")
+			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
 			return mCfg
 		}, Config{Server: Server{Hostname: "", Port: 4444}}},
+		{"config bool FLAG_IS_LIMIT_MAX_SPEND env should return as changed", func() *mockOsCfg {
+			mCfg := new(mockOsCfg)
+			mCfg.On("Getenv", cHostname).Return("")
+			mCfg.On("Getenv", cPort).Return("")
+			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
+			return mCfg
+		}, Config{
+			Server:      Server{Port: 1323},
+			FeatureFlag: FeatureFlag{IsLimitMaxSpend: true},
+		}},
 		{"config hostname and port env should return as changed", func() *mockOsCfg {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
 			mCfg.On("Getenv", cPort).Return("4444")
+			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
 			return mCfg
-		}, Config{Server: Server{Hostname: "test-hostname", Port: 4444}}},
+		}, Config{
+			Server:      Server{Hostname: "test-hostname", Port: 4444},
+			FeatureFlag: FeatureFlag{IsLimitMaxSpend: true},
+		}},
 	}
 
 	for _, tc := range tests {
