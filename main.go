@@ -10,7 +10,9 @@ import (
 
 	"github.com/kkgoo-software-engineering/workshop/handler/featflag"
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
+	"github.com/kkgoo-software-engineering/workshop/internal/middleware/zapmw"
 	"github.com/labstack/echo/v4"
+	"go.uber.org/zap"
 )
 
 func main() {
@@ -18,11 +20,16 @@ func main() {
 	e := echo.New()
 	gCtx := context.Background()
 
+	logger, _ := zap.NewProduction()
+	logmw := zapmw.New(logger)
+	e.Use(logmw)
+
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
 	hFeatFlag := featflag.New(&cfg)
+
 	e.GET("/features", hFeatFlag.List)
 
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
