@@ -8,8 +8,14 @@ import (
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
 )
 
-func List(cfg *config.Config) func(c echo.Context) error {
-	return func(c echo.Context) error {
-		return c.JSON(http.StatusOK, cfg.FeatureFlag)
-	}
+type handler struct {
+	cfg *config.Config
+}
+
+func New(cfg *config.Config) *handler {
+	return &handler{cfg}
+}
+
+func (h handler) List(c echo.Context) error {
+	return c.JSON(http.StatusOK, h.cfg.FeatureFlag)
 }

@@ -16,7 +16,9 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
-	e.GET("/features", featflag.List(&cfg))
+
+	hFeatFlag := featflag.New(&cfg)
+	e.GET("/features", hFeatFlag.List)
 
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
 	e.Logger.Fatal(e.Start(addr))
