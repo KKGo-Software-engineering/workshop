@@ -39,3 +39,27 @@ func TestStringEnvironment(t *testing.T) {
 		})
 	}
 }
+
+func TestIntEnvironment(t *testing.T) {
+	cfg := New()
+	tests := []struct {
+		name         string
+		key          string
+		defaultValue int
+		osValue      string
+		want         int
+	}{
+		{"get int from environment", "test-key", 10, "1", 1},
+		{"get defualt int if not config", "", 10, "", 10},
+	}
+
+	for _, tc := range tests {
+		t.Run(tc.name, func(t *testing.T) {
+			mCfg := new(mockOsCfg)
+			mCfg.On("Getenv", tc.key).Return(tc.osValue)
+			cfg.SetEnvGetter(mCfg)
+			got := cfg.envInt(tc.key, tc.defaultValue)
+			assert.Equal(t, tc.want, got)
+		})
+	}
+}

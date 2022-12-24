@@ -1,6 +1,9 @@
 package config
 
-import "os"
+import (
+	"os"
+	"strconv"
+)
 
 type envGetter interface {
 	Getenv(key string) string
@@ -30,4 +33,19 @@ func (cfg *cfg) envString(key, defaultValue string) string {
 		return defaultValue
 	}
 	return value
+}
+
+func (cfg *cfg) envInt(key string, defaultValue int) int {
+	value := cfg.envGetter.Getenv(key)
+
+	if value == "" {
+		return defaultValue
+	}
+
+	intValue, err := strconv.Atoi(value)
+	if err != nil {
+		return defaultValue
+	}
+
+	return intValue
 }
