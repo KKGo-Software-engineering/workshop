@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"os/signal"
@@ -20,7 +21,11 @@ func main() {
 	e := echo.New()
 	gCtx := context.Background()
 
-	logger, _ := zap.NewProduction()
+	logger, err := zap.NewProduction()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	logmw := zapmw.New(logger)
 	e.Use(logmw)
 
@@ -31,9 +36,9 @@ func main() {
 	go func() {
 		err := e.Start(addr)
 		if err != nil && err != http.ErrServerClosed {
-			e.Logger.Fatal(err)
+			logger.Fatal("unexpected shutdown the server", zap.Error(err))
 		}
-		e.Logger.Print("gracefully shutdown the server")
+		logger.Info("gracefully shutdown the server")
 	}()
 
 	quit := make(chan os.Signal, 1)
@@ -44,6 +49,6 @@ func main() {
 	defer cancel()
 
 	if err := e.Shutdown(ctx); err != nil {
-		e.Logger.Fatal(err)
+		logger.Fatal("unexpected shutdown the server", zap.Error(err))
 	}
 }
