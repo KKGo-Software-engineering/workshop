@@ -95,46 +95,41 @@ func TestGetAllConfig(t *testing.T) {
 		mCfgFn func() *mockOsCfg
 		want   Config
 	}{
-		{"no config env should return default config", func() *mockOsCfg {
-			mCfg := new(mockOsCfg)
-			mCfg.On("Getenv", cHostname).Return("")
-			mCfg.On("Getenv", cPort).Return("")
-			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
-			mCfg.On("Getenv", cDBConnection).Return("")
-			return mCfg
-		}, Config{Server: Server{Port: 1323},
-			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
+		{"no config env should return default config",
+			func() *mockOsCfg {
+				return defaultMock(cHostname, cPort, cFlagIsLimitMaxSpend, cDBConnection)
+			},
+			Config{Server: Server{Port: 1323},
+				DBConnection: dDBConnection}},
 		{"config hostname env should return as changed", func() *mockOsCfg {
-			mCfg := new(mockOsCfg)
+			mCfg := defaultMock(cPort, cFlagIsLimitMaxSpend, cDBConnection)
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
-			mCfg.On("Getenv", cPort).Return("")
-			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
-			mCfg.On("Getenv", cDBConnection).Return("")
 			return mCfg
 		}, Config{Server: Server{Hostname: "test-hostname", Port: 1323},
-			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
+			DBConnection: dDBConnection}},
 		{"config port env should return as changed", func() *mockOsCfg {
-			mCfg := new(mockOsCfg)
-			mCfg.On("Getenv", cHostname).Return("")
+			mCfg := defaultMock(cHostname, cFlagIsLimitMaxSpend, cDBConnection)
 			mCfg.On("Getenv", cPort).Return("4444")
-			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
-			mCfg.On("Getenv", cDBConnection).Return("")
 			return mCfg
 		}, Config{Server: Server{Port: 4444},
-			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
+			DBConnection: dDBConnection}},
 		{"config bool FLAG_IS_LIMIT_MAX_SPEND env should return as changed", func() *mockOsCfg {
-			mCfg := new(mockOsCfg)
-			mCfg.On("Getenv", cHostname).Return("")
-			mCfg.On("Getenv", cPort).Return("")
+			mCfg := defaultMock(cPort, cHostname, cDBConnection)
 			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
-			mCfg.On("Getenv", cDBConnection).Return("")
 			return mCfg
 		}, Config{
 			Server:       Server{Port: 1323},
 			FeatureFlag:  FeatureFlag{IsLimitMaxSpend: true},
-			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
+			DBConnection: dDBConnection}},
+		{"config DB_CONNECTION env should return as changed", func() *mockOsCfg {
+			mCfg := defaultMock(cPort, cHostname, cFlagIsLimitMaxSpend)
+			mCfg.On("Getenv", cDBConnection).Return("test-db-connection")
+			return mCfg
+		}, Config{
+			Server:       Server{Port: 1323},
+			DBConnection: "test-db-connection"}},
 		{"config all env should return as changed", func() *mockOsCfg {
-			mCfg := new(mockOsCfg)
+			mCfg := defaultMock()
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
 			mCfg.On("Getenv", cPort).Return("4444")
 			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
@@ -155,4 +150,12 @@ func TestGetAllConfig(t *testing.T) {
 			assert.Equal(t, tc.want, got)
 		})
 	}
+}
+
+func defaultMock(envs ...string) *mockOsCfg {
+	mCfg := new(mockOsCfg)
+	for _, env := range envs {
+		mCfg.On("Getenv", env).Return("")
+	}
+	return mCfg
 }

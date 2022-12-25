@@ -46,16 +46,21 @@ const (
 	cDBConnection        = "DB_CONNECTION"
 )
 
+const (
+	dPort         = 1323
+	dDBConnection = "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"
+)
+
 func (cfg *cfg) All() Config {
 	return Config{
 		Server: Server{
 			Hostname: cfg.envString(cHostname, ""),
-			Port:     cfg.envInt(cPort, 1323),
+			Port:     cfg.envInt(cPort, dPort),
 		},
 		FeatureFlag: FeatureFlag{
 			IsLimitMaxSpend: cfg.envBool(cFlagIsLimitMaxSpend, false),
 		},
-		DBConnection: cfg.envString(cDBConnection, "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"),
+		DBConnection: cfg.envString(cDBConnection, dDBConnection),
 	}
 }
 
