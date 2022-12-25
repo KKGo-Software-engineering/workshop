@@ -12,7 +12,7 @@ import (
 
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
 	"github.com/kkgoo-software-engineering/workshop/internal/middleware/zapmw"
-	"github.com/kkgoo-software-engineering/workshop/router"
+	"github.com/kkgoo-software-engineering/workshop/internal/router"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
