@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// this one probably not necessarily to test, it's really straight forward
 func TestRegisterRoute(t *testing.T) {
 	e := echo.New()
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
@@ -18,5 +19,5 @@ func TestRegisterRoute(t *testing.T) {
 	e.ServeHTTP(rec, req)
 	RegRoute(&config.Config{}, e, &sql.DB{})
 	rts := e.Routes()
-	assert.Equal(t, len(rts), 3)
+	assert.Equal(t, len(rts), 4)
 }

@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 
+	"github.com/kkgoo-software-engineering/workshop/handler/account"
 	"github.com/kkgoo-software-engineering/workshop/handler/featflag"
 	"github.com/kkgoo-software-engineering/workshop/handler/healthchk"
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
@@ -17,6 +18,9 @@ func RegRoute(cfg *config.Config, e *echo.Echo, db *sql.DB) {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+
+	hAccount := account.New(db)
+	e.POST("/accounts", hAccount.Create)
 
 	hFeatFlag := featflag.New(cfg)
 	e.GET("/features", hFeatFlag.List)
