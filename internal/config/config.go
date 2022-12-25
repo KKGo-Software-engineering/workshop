@@ -24,8 +24,9 @@ func New() *cfg {
 }
 
 type Config struct {
-	Server      Server
-	FeatureFlag FeatureFlag
+	Server       Server
+	FeatureFlag  FeatureFlag
+	DBConnection string
 }
 
 type Server struct {
@@ -42,6 +43,7 @@ const (
 	cPort     = "PORT"
 
 	cFlagIsLimitMaxSpend = "FLAG_IS_LIMIT_MAX_SPEND"
+	cDBConnection        = "DB_CONNECTION"
 )
 
 func (cfg *cfg) All() Config {
@@ -53,6 +55,7 @@ func (cfg *cfg) All() Config {
 		FeatureFlag: FeatureFlag{
 			IsLimitMaxSpend: cfg.envBool(cFlagIsLimitMaxSpend, false),
 		},
+		DBConnection: cfg.envString(cDBConnection, "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"),
 	}
 }
 

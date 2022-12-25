@@ -100,41 +100,50 @@ func TestGetAllConfig(t *testing.T) {
 			mCfg.On("Getenv", cHostname).Return("")
 			mCfg.On("Getenv", cPort).Return("")
 			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
+			mCfg.On("Getenv", cDBConnection).Return("")
 			return mCfg
-		}, Config{Server: Server{Port: 1323}}},
+		}, Config{Server: Server{Port: 1323},
+			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
 		{"config hostname env should return as changed", func() *mockOsCfg {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
 			mCfg.On("Getenv", cPort).Return("")
 			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
+			mCfg.On("Getenv", cDBConnection).Return("")
 			return mCfg
-		}, Config{Server: Server{Hostname: "test-hostname", Port: 1323}}},
+		}, Config{Server: Server{Hostname: "test-hostname", Port: 1323},
+			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
 		{"config port env should return as changed", func() *mockOsCfg {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("")
 			mCfg.On("Getenv", cPort).Return("4444")
 			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("")
+			mCfg.On("Getenv", cDBConnection).Return("")
 			return mCfg
-		}, Config{Server: Server{Port: 4444}}},
+		}, Config{Server: Server{Port: 4444},
+			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
 		{"config bool FLAG_IS_LIMIT_MAX_SPEND env should return as changed", func() *mockOsCfg {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("")
 			mCfg.On("Getenv", cPort).Return("")
 			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
+			mCfg.On("Getenv", cDBConnection).Return("")
 			return mCfg
 		}, Config{
-			Server:      Server{Port: 1323},
-			FeatureFlag: FeatureFlag{IsLimitMaxSpend: true},
-		}},
-		{"config hostname and port env should return as changed", func() *mockOsCfg {
+			Server:       Server{Port: 1323},
+			FeatureFlag:  FeatureFlag{IsLimitMaxSpend: true},
+			DBConnection: "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"}},
+		{"config all env should return as changed", func() *mockOsCfg {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
 			mCfg.On("Getenv", cPort).Return("4444")
 			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
+			mCfg.On("Getenv", cDBConnection).Return("test-db-connection")
 			return mCfg
 		}, Config{
-			Server:      Server{Hostname: "test-hostname", Port: 4444},
-			FeatureFlag: FeatureFlag{IsLimitMaxSpend: true},
+			Server:       Server{Hostname: "test-hostname", Port: 4444},
+			FeatureFlag:  FeatureFlag{IsLimitMaxSpend: true},
+			DBConnection: "test-db-connection",
 		}},
 	}
 

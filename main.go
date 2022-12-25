@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"log"
 	"net/http"
@@ -14,6 +15,8 @@ import (
 	"github.com/kkgoo-software-engineering/workshop/router"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
+
+	_ "github.com/lib/pq"
 )
 
 func main() {
@@ -26,10 +29,15 @@ func main() {
 		log.Fatal(err)
 	}
 
+	sql, err := sql.Open("postgres", cfg.DBConnection)
+	if err != nil {
+		logger.Fatal("unable to configure database", zap.Error(err))
+	}
+
 	logmw := zapmw.New(logger)
 	e.Use(logmw)
 
-	router.RegRoute(&cfg, e)
+	router.RegRoute(&cfg, e, sql)
 
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
 

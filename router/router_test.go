@@ -1,6 +1,7 @@
 package router
 
 import (
+	"database/sql"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,7 +16,7 @@ func TestRegisterRoute(t *testing.T) {
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
-	RegRoute(&config.Config{}, e)
+	RegRoute(&config.Config{}, e, &sql.DB{})
 	rts := e.Routes()
-	assert.Equal(t, len(rts), 2)
+	assert.Equal(t, len(rts), 3)
 }
