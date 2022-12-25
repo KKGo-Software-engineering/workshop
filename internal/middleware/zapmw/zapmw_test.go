@@ -20,7 +20,7 @@ func TestZapLogMiddleware(t *testing.T) {
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
 	ctx := e.AcquireContext()
-	assert.IsType(t, zap.Logger{}, Logger(ctx))
+	assert.IsType(t, &zap.Logger{}, Logger(ctx))
 }
 
 func TestUnsetZapLogMiddleware(t *testing.T) {
@@ -29,5 +29,5 @@ func TestUnsetZapLogMiddleware(t *testing.T) {
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
 	ctx := e.AcquireContext()
-	assert.IsType(t, zap.Logger{}, Logger(ctx))
+	assert.IsType(t, &zap.Logger{}, Logger(ctx))
 }

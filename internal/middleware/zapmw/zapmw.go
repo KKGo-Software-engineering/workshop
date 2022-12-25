@@ -9,12 +9,11 @@ const cZapLogger = "ZapLogger"
 
 func New(logger *zap.Logger) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
-		newLogger := *logger
-		return zapLogMiddleware(next, newLogger)
+		return zapLogMiddleware(next, logger)
 	}
 }
 
-func zapLogMiddleware(next echo.HandlerFunc, logger zap.Logger) func(c echo.Context) error {
+func zapLogMiddleware(next echo.HandlerFunc, logger *zap.Logger) func(c echo.Context) error {
 	return func(c echo.Context) error {
 		c.Set(cZapLogger, logger)
 		next(c)
@@ -22,10 +21,10 @@ func zapLogMiddleware(next echo.HandlerFunc, logger zap.Logger) func(c echo.Cont
 	}
 }
 
-func Logger(c echo.Context) zap.Logger {
-	logger, ok := c.Get(cZapLogger).(zap.Logger)
+func Logger(c echo.Context) *zap.Logger {
+	logger, ok := c.Get(cZapLogger).(*zap.Logger)
 	if !ok {
-		logger = *zap.NewNop()
+		logger = zap.NewNop()
 	}
 	return logger
 }
