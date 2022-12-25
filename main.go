@@ -8,9 +8,9 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/kkgoo-software-engineering/workshop/handler/featflag"
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
 	"github.com/kkgoo-software-engineering/workshop/internal/middleware/zapmw"
+	"github.com/kkgoo-software-engineering/workshop/router"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
@@ -24,13 +24,7 @@ func main() {
 	logmw := zapmw.New(logger)
 	e.Use(logmw)
 
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
-
-	hFeatFlag := featflag.New(&cfg)
-
-	e.GET("/features", hFeatFlag.List)
+	router.RegRoute(&cfg, e)
 
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
 
