@@ -22,10 +22,6 @@ func TestGetFeatFlagIT(t *testing.T) {
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
 
-	if rec.Code != http.StatusOK {
-		t.Errorf("unexpected status code")
-	}
-
 	expected := `{"IsLimitMaxSpend": true}`
 	assert.Equal(t, http.StatusOK, rec.Code)
 	assert.JSONEq(t, expected, rec.Body.String())
