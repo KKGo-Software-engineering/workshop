@@ -35,6 +35,6 @@ func TestCreateAccountIT(t *testing.T) {
 	e.ServeHTTP(rec, req)
 
 	expected := `{"id": 1, "balance": 999.99}`
-	assert.Equal(t, http.StatusOK, rec.Code)
+	assert.Equal(t, http.StatusCreated, rec.Code)
 	assert.JSONEq(t, expected, rec.Body.String())
 }

@@ -1,0 +1,36 @@
+version: '3.2'
+
+networks:
+  integration-test:
+
+services:
+  it_tests:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.test
+    environment:
+      - DB_CONNECTION=postgresql://postgres:password@db:5432/banking?sslmode=disable
+    volumes:
+      - $PWD:/go/src
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - integration-test
+
+  db:
+    image: postgres:12.12
+    user: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: banking
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - integration-test
