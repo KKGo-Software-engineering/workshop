@@ -46,3 +46,28 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
+
+# ==============
+  # CD task
+  # ==============
+  gitops-versioning:
+    runs-on: ubuntu-latest
+    needs: build-and-push-docker-image
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        
+      - name: change image tag
+        run: |
+          git --version
+          git config user.name "robot"
+          git config user.email "root@aorjoa.link"
+          sed -i -E "s/ghcr.io\/kkgo-software-engineering\/workshop.*$/ghcr.io\/kkgo-software-engineering\/workshop:${GITHUB_SHA}/" infra/gitops/deployment.yml
+          git add infra/gitops/deployment.yml
+          git commit -m "[skip actions] 🤖 change docker image version to ${GITHUB_SHA}"
+      - name: push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: kkgo-software-engineering/workshop
+          branch: main
