@@ -48,9 +48,9 @@ jobs:
         run: echo ${{ steps.docker_build.outputs.digest }}
 
 # ==============
-  # CD task
+  # CD DEV task
   # ==============
-  gitops-versioning:
+  gitops-dev-versioning:
     runs-on: ubuntu-latest
     needs: build-and-push-docker-image
     steps:
@@ -62,9 +62,9 @@ jobs:
           git --version
           git config user.name "robot"
           git config user.email "root@aorjoa.link"
-          sed -i -E "s/ghcr.io\/kkgo-software-engineering\/workshop.*$/ghcr.io\/kkgo-software-engineering\/workshop:${GITHUB_SHA}/" infra/gitops/deployment.yml
-          git add infra/gitops/deployment.yml
-          git commit -m "[skip actions] 🤖 change docker image version to ${GITHUB_SHA}"
+          sed -i -E "s/ghcr.io\/kkgo-software-engineering\/workshop.*$/ghcr.io\/kkgo-software-engineering\/workshop:${GITHUB_SHA}/" infra/gitops/dev/deployment.yml
+          git add infra/gitops/dev/deployment.yml
+          git commit -m "[skip actions] 🤖 change dev docker image version to ${GITHUB_SHA}"
       - name: push changes
         uses: ad-m/github-push-action@master
         with:
