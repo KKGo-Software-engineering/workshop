@@ -1,8 +1,8 @@
 dev:
 	go run main.go
 
-test:
-	go test -v ./...
+test-unit:
+	go test -tags=unit -v ./...
 
 test-coverage:
 	go test -cover ./...
