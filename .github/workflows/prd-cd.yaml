@@ -1,0 +1,43 @@
+name: Prd environment CD
+
+on:
+  workflow_dispatch:
+    inputs:
+      test:
+        description: '🔦 QA lead already approved'
+        required: true
+        type: boolean
+      sign-off:
+        description: '📝 Make sure PO sign-off'
+        required: true
+        type: boolean
+      deploy-tag:
+        description: '🎯 Deploy docker tag : '
+        required: true
+        type: string
+
+jobs:
+  # ==============
+  # CD Prd task
+  # ==============
+  gitops-dev-versioning:
+    runs-on: ubuntu-latest
+    needs: build-and-push-docker-image
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        
+      - name: change image tag
+        run: |
+          git --version
+          git config user.name "robot"
+          git config user.email "root@aorjoa.link"
+          sed -i -E "s/ghcr.io\/kkgo-software-engineering\/workshop.*$/ghcr.io\/kkgo-software-engineering\/workshop:${{ inputs.deploy-tag }}/" infra/gitops/prd/deployment.yml
+          git add infra/gitops/dev/deployment.yml
+          git commit -m "[skip actions] 🤖 change prd docker image version to ${{ inputs.deploy-tag }}"
+      - name: push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: kkgo-software-engineering/workshop
+          branch: main
