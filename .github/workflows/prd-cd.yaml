@@ -43,4 +43,5 @@ jobs:
           sed -i -E "s/ghcr.io\/kkgo-software-engineering\/workshop.*$/ghcr.io\/kkgo-software-engineering\/workshop:${{ inputs.deploy-tag }}/" infra/gitops/prd/deployment.yml
           git add infra/gitops/prd/deployment.yml
           git commit -m "[skip actions] 🤖 change prd docker image version to ${{ inputs.deploy-tag }}"
+          git pull --rebase
           git push
