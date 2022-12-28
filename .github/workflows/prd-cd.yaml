@@ -31,18 +31,16 @@ jobs:
         
       - name: checkout
         uses: actions/checkout@v2
-        
-      - name: change image tag
+
+      - name: config git
         run: |
           git --version
           git config user.name "robot"
           git config user.email "root@aorjoa.link"
+        
+      - name: change image tag
+        run: |
           sed -i -E "s/ghcr.io\/kkgo-software-engineering\/workshop.*$/ghcr.io\/kkgo-software-engineering\/workshop:${{ inputs.deploy-tag }}/" infra/gitops/prd/deployment.yml
           git add infra/gitops/prd/deployment.yml
           git commit -m "[skip actions] 🤖 change prd docker image version to ${{ inputs.deploy-tag }}"
-      - name: push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: kkgo-software-engineering/workshop
-          branch: main
+          git push

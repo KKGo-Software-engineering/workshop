@@ -13,7 +13,8 @@ jobs:
     name: Build Docker image and push to repositories
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: checkout
+        uses: actions/checkout@v3
       
       - name: Setup SHA
         run: echo "GITHUB_SHA=${GITHUB_SHA}" >> $GITHUB_ENV
@@ -47,7 +48,7 @@ jobs:
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
 
-# ==============
+  # ==============
   # CD DEV task
   # ==============
   gitops-dev-versioning:
