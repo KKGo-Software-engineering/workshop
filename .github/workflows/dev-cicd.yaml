@@ -76,7 +76,7 @@ jobs:
 
       - name: set default docker image tag fot prd
         run: |
-          sed -i -E "s/default: default/default: ${GITHUB_SHA}/" .github/workflows/prd-cd.yaml
+          sed -i -E "s/default: .*/default: ${GITHUB_SHA}/" .github/workflows/prd-cd.yaml
           git add .github/workflows/prd-cd.yaml
           git commit -m "[skip actions] 🤖 change default docker tag"
           git pull --rebase
