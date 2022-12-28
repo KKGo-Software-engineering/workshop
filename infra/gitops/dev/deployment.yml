@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: pun-api
-        image: ghcr.io/kkgo-software-engineering/workshop:f921ebe8474e234f28456706b95ae34cc62c8a60
+        image: ghcr.io/kkgo-software-engineering/workshop:697d7c94c6c7d2aa40fdf534abc02ad878c7b19e
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
