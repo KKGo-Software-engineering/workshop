@@ -105,7 +105,7 @@ func TestCreateAccount_Error(t *testing.T) {
 		reqBody string
 		wantErr error
 	}{
-		{"create account succesfully",
+		{"create account failed",
 			&config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
