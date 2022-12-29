@@ -4,4 +4,4 @@ metadata:
   name: app-config
   namespace: workshop-dev
 data:
-  api.service.port: "8080"
+  api.service.port: "1323"

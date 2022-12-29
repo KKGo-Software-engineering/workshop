@@ -20,7 +20,7 @@ spec:
         image: ghcr.io/kkgo-software-engineering/workshop:697d7c94c6c7d2aa40fdf534abc02ad878c7b19e
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 1323
         env:
         - name: PORT
           valueFrom:
