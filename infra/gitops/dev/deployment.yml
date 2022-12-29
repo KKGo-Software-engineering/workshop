@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: api
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -29,5 +29,5 @@ spec:
               key: api.service.port
         resources:
           limits:
-            cpu: 500m
+            cpu: 100m
             memory: 256Mi
