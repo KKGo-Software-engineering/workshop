@@ -99,32 +99,32 @@ func TestGetAllConfig(t *testing.T) {
 	}{
 		{"no config env should return default config",
 			func() *mockOsCfg {
-				return defaultMock(cHostname, cPort, cFlagIsLimitMaxSpend, cDBConnection)
+				return defaultMock(cHostname, cPort, cFlagIsLimitMaxBalanceOnCreate, cDBConnection)
 			},
 			Config{Server: Server{Port: 1323},
 				DBConnection: dDBConnection}},
 		{"config hostname env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock(cPort, cFlagIsLimitMaxSpend, cDBConnection)
+			mCfg := defaultMock(cPort, cFlagIsLimitMaxBalanceOnCreate, cDBConnection)
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
 			return mCfg
 		}, Config{Server: Server{Hostname: "test-hostname", Port: 1323},
 			DBConnection: dDBConnection}},
 		{"config port env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock(cHostname, cFlagIsLimitMaxSpend, cDBConnection)
+			mCfg := defaultMock(cHostname, cFlagIsLimitMaxBalanceOnCreate, cDBConnection)
 			mCfg.On("Getenv", cPort).Return("4444")
 			return mCfg
 		}, Config{Server: Server{Port: 4444},
 			DBConnection: dDBConnection}},
-		{"config bool FLAG_IS_LIMIT_MAX_SPEND env should return as changed", func() *mockOsCfg {
+		{"config bool FLAG_IS_LIMIT_MAX_SPEND_ON_CREATE env should return as changed", func() *mockOsCfg {
 			mCfg := defaultMock(cPort, cHostname, cDBConnection)
-			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
+			mCfg.On("Getenv", cFlagIsLimitMaxBalanceOnCreate).Return("TRUE")
 			return mCfg
 		}, Config{
 			Server:       Server{Port: 1323},
-			FeatureFlag:  FeatureFlag{IsLimitMaxSpend: true},
+			FeatureFlag:  FeatureFlag{IsLimitMaxBalanceOnCreate: true},
 			DBConnection: dDBConnection}},
 		{"config DB_CONNECTION env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock(cPort, cHostname, cFlagIsLimitMaxSpend)
+			mCfg := defaultMock(cPort, cHostname, cFlagIsLimitMaxBalanceOnCreate)
 			mCfg.On("Getenv", cDBConnection).Return("test-db-connection")
 			return mCfg
 		}, Config{
@@ -134,12 +134,12 @@ func TestGetAllConfig(t *testing.T) {
 			mCfg := defaultMock()
 			mCfg.On("Getenv", cHostname).Return("test-hostname")
 			mCfg.On("Getenv", cPort).Return("4444")
-			mCfg.On("Getenv", cFlagIsLimitMaxSpend).Return("TRUE")
+			mCfg.On("Getenv", cFlagIsLimitMaxBalanceOnCreate).Return("TRUE")
 			mCfg.On("Getenv", cDBConnection).Return("test-db-connection")
 			return mCfg
 		}, Config{
 			Server:       Server{Hostname: "test-hostname", Port: 4444},
-			FeatureFlag:  FeatureFlag{IsLimitMaxSpend: true},
+			FeatureFlag:  FeatureFlag{IsLimitMaxBalanceOnCreate: true},
 			DBConnection: "test-db-connection",
 		}},
 	}

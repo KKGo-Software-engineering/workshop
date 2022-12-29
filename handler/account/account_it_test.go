@@ -23,8 +23,9 @@ func TestCreateAccountIT(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	cfgFlag := &config.FeatureFlag{}
 
-	hAccount := New(sql)
+	hAccount := New(cfgFlag, sql)
 
 	e.POST("/accounts", hAccount.Create)
 

@@ -16,7 +16,7 @@ func TestGetFeatFlagIT(t *testing.T) {
 	e := echo.New()
 
 	hFeatFlag := New(&config.Config{
-		FeatureFlag: config.FeatureFlag{IsLimitMaxSpend: true}})
+		FeatureFlag: config.FeatureFlag{IsLimitMaxBalanceOnCreate: true}})
 
 	e.GET("/features", hFeatFlag.List)
 
@@ -24,7 +24,7 @@ func TestGetFeatFlagIT(t *testing.T) {
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
 
-	expected := `{"IsLimitMaxSpend": true}`
+	expected := `{"isLimitMaxBalanceOnCreate": true}`
 	assert.Equal(t, http.StatusOK, rec.Code)
 	assert.JSONEq(t, expected, rec.Body.String())
 }

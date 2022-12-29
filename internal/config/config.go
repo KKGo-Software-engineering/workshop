@@ -35,15 +35,15 @@ type Server struct {
 }
 
 type FeatureFlag struct {
-	IsLimitMaxSpend bool
+	IsLimitMaxBalanceOnCreate bool `json:"isLimitMaxBalanceOnCreate"`
 }
 
 const (
 	cHostname = "HOSTNAME"
 	cPort     = "PORT"
 
-	cFlagIsLimitMaxSpend = "FLAG_IS_LIMIT_MAX_SPEND"
-	cDBConnection        = "DB_CONNECTION"
+	cFlagIsLimitMaxBalanceOnCreate = "FLAG_IS_LIMIT_MAX_SPEND_ON_CREATE"
+	cDBConnection                  = "DB_CONNECTION"
 )
 
 const (
@@ -58,7 +58,7 @@ func (cfg *cfg) All() Config {
 			Port:     cfg.envInt(cPort, dPort),
 		},
 		FeatureFlag: FeatureFlag{
-			IsLimitMaxSpend: cfg.envBool(cFlagIsLimitMaxSpend, false),
+			IsLimitMaxBalanceOnCreate: cfg.envBool(cFlagIsLimitMaxBalanceOnCreate, false),
 		},
 		DBConnection: cfg.envString(cDBConnection, dDBConnection),
 	}

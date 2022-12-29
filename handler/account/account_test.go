@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	"github.com/kkgoo-software-engineering/workshop/internal/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
@@ -18,12 +19,14 @@ import (
 func TestCreateAccount(t *testing.T) {
 	tests := []struct {
 		name       string
+		cfgFlag    *config.FeatureFlag
 		sqlFn      func() (*sql.DB, error)
 		reqBody    string
 		wantStatus int
 		wantBody   string
 	}{
 		{"create account succesfully",
+			&config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 				if err != nil {
@@ -38,12 +41,37 @@ func TestCreateAccount(t *testing.T) {
 			`{"id": 1, "balance": 1000.0}`,
 		},
 		{"create with bad request",
+			&config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				return nil, nil
 			},
 			`{"ba}`,
 			http.StatusBadRequest,
 			`{"error": "bad request body"}`,
+		},
+		{"create account balance exceed limitation and disable feature should successfull",
+			&config.FeatureFlag{},
+			func() (*sql.DB, error) {
+				db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
+				if err != nil {
+					return nil, err
+				}
+				row := sqlmock.NewRows([]string{"id"}).AddRow(1)
+				mock.ExpectQuery(cStmt).WithArgs(10000.1).WillReturnRows(row)
+				return db, err
+			},
+			`{"balance": 10000.1}`,
+			http.StatusCreated,
+			`{"id": 1, "balance": 10000.1}`,
+		},
+		{"create account balance exceed limitation and enable feature should failed",
+			&config.FeatureFlag{IsLimitMaxBalanceOnCreate: true},
+			func() (*sql.DB, error) {
+				return nil, nil
+			},
+			`{"balance": 10000.1}`,
+			http.StatusBadRequest,
+			`{"error": "create account balance exceed limitation"}`,
 		},
 	}
 
@@ -56,7 +84,7 @@ func TestCreateAccount(t *testing.T) {
 			c := e.NewContext(req, rec)
 
 			db, err := tc.sqlFn()
-			h := New(db)
+			h := New(tc.cfgFlag, db)
 
 			// Assertions
 			assert.NoError(t, err)
@@ -72,11 +100,13 @@ func TestCreateAccount_Error(t *testing.T) {
 	someErr := errors.New("some random error")
 	tests := []struct {
 		name    string
+		cfgFlag *config.FeatureFlag
 		sqlFn   func() (*sql.DB, error)
 		reqBody string
 		wantErr error
 	}{
 		{"create account succesfully",
+			&config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 				if err != nil {
@@ -99,7 +129,7 @@ func TestCreateAccount_Error(t *testing.T) {
 			c := e.NewContext(req, rec)
 
 			db, err := tc.sqlFn()
-			h := New(db)
+			h := New(tc.cfgFlag, db)
 
 			// Assertions
 			assert.NoError(t, err)

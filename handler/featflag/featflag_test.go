@@ -21,10 +21,10 @@ func TestListFeatureFlag(t *testing.T) {
 	}{
 		{"list all feature flag with default value",
 			config.Config{},
-			`{"IsLimitMaxSpend":false}`},
-		{"list all feature flag with IsLimitMaxSpend = true",
-			config.Config{FeatureFlag: config.FeatureFlag{IsLimitMaxSpend: true}},
-			`{"IsLimitMaxSpend":true}`},
+			`{"isLimitMaxBalanceOnCreate":false}`},
+		{"list all feature flag with isLimitMaxBalanceOnCreate = true",
+			config.Config{FeatureFlag: config.FeatureFlag{IsLimitMaxBalanceOnCreate: true}},
+			`{"isLimitMaxBalanceOnCreate":true}`},
 	}
 
 	for _, tc := range tests {

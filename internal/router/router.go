@@ -19,7 +19,7 @@ func RegRoute(cfg *config.Config, e *echo.Echo, db *sql.DB) {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
 
-	hAccount := account.New(db)
+	hAccount := account.New(&cfg.FeatureFlag, db)
 	e.POST("/accounts", hAccount.Create)
 
 	hFeatFlag := featflag.New(cfg)
