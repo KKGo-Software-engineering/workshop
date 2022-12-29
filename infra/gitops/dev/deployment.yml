@@ -13,6 +13,8 @@ spec:
       labels:
         app: api
     spec:
+      imagePullSecrets:
+        - name: docker-secret
       containers:
       - name: pun-api
         image: ghcr.io/kkgo-software-engineering/workshop:697d7c94c6c7d2aa40fdf534abc02ad878c7b19e
