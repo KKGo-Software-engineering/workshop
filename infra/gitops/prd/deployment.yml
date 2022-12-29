@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api
-  namespace: workshop-prd
+  namespace: workshop-dev
 spec:
   selector:
     matchLabels:
@@ -13,18 +13,19 @@ spec:
       labels:
         app: api
     spec:
+      imagePullSecrets:
+        - name: secret-docker
       containers:
       - name: pun-api
-        image: ghcr.io/kkgo-software-engineering/workshop:697d7c94c6c7d2aa40fdf534abc02ad878c7b19e
+        image: ghcr.io/kkgo-software-engineering/workshop:21d9805d772d54f180298a54653e02109804be6a
         imagePullPolicy: Always
         ports:
         - containerPort: 1323
-        env:
-        - name: PORT
-          valueFrom:
-            configMapKeyRef:
-              name: app-config
-              key: api.service.port
+        envFrom:
+          - configMapRef:
+              name: app-env-config
+          - secretRef:
+              name: secret-config
         resources:
           limits:
             cpu: 100m

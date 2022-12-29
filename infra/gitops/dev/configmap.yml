@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: app-config
+  name: app-env-config
   namespace: workshop-dev
 data:
-  api.service.port: "1323"
+  HOSTNAME: ''
+  PORT: '1323'
+  FLAG_IS_LIMIT_MAX_SPEND_ON_CREATE: 'true'
+  DB_CONNECTION: 'postgresql://postgres:password@0.tcp.ap.ngrok.io:5432/banking?sslmode=disable'
+  
