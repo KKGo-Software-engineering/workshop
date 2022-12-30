@@ -18,8 +18,7 @@ func zapLogMiddleware(next echo.HandlerFunc, logger *zap.Logger) func(c echo.Con
 	return func(c echo.Context) error {
 		ehLogger := ehLogger(c, logger)
 		c.Set(cZapLogger, ehLogger)
-		next(c)
-		return nil
+		return next(c)
 	}
 }
 
