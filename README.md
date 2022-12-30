@@ -96,15 +96,22 @@ kubectl create namespace argocd
 
 ```console
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
 
 3.หารหัสผ่านของ `admin` ไว้ก่อน
 
 ```console
- kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
 
 4.Forword Port เพื่อใช้งาน [http://localhost:8080](http://localhost:8080)
 
 ```console
 kubectl port-forward svc/argocd-server -n argocd 8080:443
+```
+
+### 💣 ใช้ AWS เสร็จแล้วอย่าลืม Destroy ทิ้งน๊า
+
+```console
+AWS_ACCESS_KEY_ID=<KEY> AWS_SECRET_ACCESS_KEY=<SECRET> terraform destroy
 ```
