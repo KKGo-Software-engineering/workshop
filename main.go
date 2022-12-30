@@ -11,9 +11,11 @@ import (
 	"time"
 
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
+	"github.com/kkgoo-software-engineering/workshop/internal/middleware/authmw"
 	"github.com/kkgoo-software-engineering/workshop/internal/middleware/zapmw"
 	"github.com/kkgoo-software-engineering/workshop/internal/router"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
 
 	_ "github.com/lib/pq"
@@ -36,6 +38,9 @@ func main() {
 
 	logmw := zapmw.New(logger)
 	e.Use(logmw)
+
+	authmw := authmw.Authenicate()
+	e.Use(middleware.BasicAuth(authmw))
 
 	router.RegRoute(&cfg, e, sql)
 
