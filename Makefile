@@ -1,6 +1,8 @@
 dev:
 	go run main.go
 
+test: test-unit test-integration test-e2e
+
 test-unit:
 	go test -tags=unit -v ./...
 

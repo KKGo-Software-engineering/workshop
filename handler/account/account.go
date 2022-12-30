@@ -2,10 +2,9 @@ package account
 
 import (
 	"database/sql"
-	"errors"
-	"fmt"
 	"net/http"
 
+	hdr "github.com/kkgoo-software-engineering/workshop/handler"
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
 	"github.com/kkgoo-software-engineering/workshop/internal/middleware/zapmw"
 	"github.com/labstack/echo/v4"
@@ -32,7 +31,8 @@ const (
 )
 
 var (
-	errBalanceLimitExceed = errors.New("create account balance exceed limitation")
+	hErrBalanceLimitExceed = echo.NewHTTPError(http.StatusBadRequest,
+		"create account balance exceed limitation")
 )
 
 func (h handler) Create(c echo.Context) error {
@@ -42,12 +42,12 @@ func (h handler) Create(c echo.Context) error {
 	err := c.Bind(&ac)
 	if err != nil {
 		logger.Error("bad request body", zap.Error(err))
-		return c.String(http.StatusBadRequest, `{"error": "bad request body"}`)
+		return hdr.ErrBadRequest
 	}
 
 	if h.cfgFlag.IsLimitMaxBalanceOnCreate && ac.Balance > cBalanceLimit {
-		logger.Error("account limit on account creating", zap.Error(errBalanceLimitExceed))
-		return c.String(http.StatusBadRequest, fmt.Sprintf(`{"error": "%s"}`, errBalanceLimitExceed))
+		logger.Error("account limit on account creating", zap.Error(hErrBalanceLimitExceed))
+		return hErrBalanceLimitExceed
 	}
 
 	var lastInsertId int64

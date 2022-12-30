@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
+	hdr "github.com/kkgoo-software-engineering/workshop/handler"
 	"github.com/kkgoo-software-engineering/workshop/internal/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -40,15 +41,6 @@ func TestCreateAccount(t *testing.T) {
 			http.StatusCreated,
 			`{"id": 1, "balance": 1000.0}`,
 		},
-		{"create with bad request",
-			&config.FeatureFlag{},
-			func() (*sql.DB, error) {
-				return nil, nil
-			},
-			`{"ba}`,
-			http.StatusBadRequest,
-			`{"error": "bad request body"}`,
-		},
 		{"create account balance exceed limitation and disable feature should successfull",
 			&config.FeatureFlag{},
 			func() (*sql.DB, error) {
@@ -64,15 +56,6 @@ func TestCreateAccount(t *testing.T) {
 			http.StatusCreated,
 			`{"id": 1, "balance": 10000.1}`,
 		},
-		{"create account balance exceed limitation and enable feature should failed",
-			&config.FeatureFlag{IsLimitMaxBalanceOnCreate: true},
-			func() (*sql.DB, error) {
-				return nil, nil
-			},
-			`{"balance": 10000.1}`,
-			http.StatusBadRequest,
-			`{"error": "create account balance exceed limitation"}`,
-		},
 	}
 
 	for _, tc := range tests {
@@ -85,7 +68,6 @@ func TestCreateAccount(t *testing.T) {
 
 			db, err := tc.sqlFn()
 			h := New(tc.cfgFlag, db)
-
 			// Assertions
 			assert.NoError(t, err)
 			if assert.NoError(t, h.Create(c)) {
@@ -118,6 +100,22 @@ func TestCreateAccount_Error(t *testing.T) {
 			`{"balance": 1000.0}`,
 			someErr,
 		},
+		{"create with bad request",
+			&config.FeatureFlag{},
+			func() (*sql.DB, error) {
+				return nil, nil
+			},
+			`ba`,
+			hdr.ErrBadRequest,
+		},
+		{"create account balance exceed limitation and enable feature should failed",
+			&config.FeatureFlag{IsLimitMaxBalanceOnCreate: true},
+			func() (*sql.DB, error) {
+				return nil, nil
+			},
+			`{"balance": 10000.1}`,
+			hErrBalanceLimitExceed,
+		},
 	}
 
 	for _, tc := range tests {
@@ -128,12 +126,12 @@ func TestCreateAccount_Error(t *testing.T) {
 			rec := httptest.NewRecorder()
 			c := e.NewContext(req, rec)
 
-			db, err := tc.sqlFn()
+			db, _ := tc.sqlFn()
 			h := New(tc.cfgFlag, db)
 
+			berr := h.Create(c)
 			// Assertions
-			assert.NoError(t, err)
-			assert.ErrorIs(t, someErr, h.Create(c))
+			assert.ErrorIs(t, berr, tc.wantErr)
 		})
 	}
 }
