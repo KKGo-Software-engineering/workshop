@@ -1,0 +1,48 @@
+version: '3.2'
+
+networks:
+  e2e-test-net:
+
+services:
+  e2e_service:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - DB_CONNECTION=postgresql://postgres:password@db:5432/banking?sslmode=disable
+    volumes:
+      - $PWD:/go/src
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - e2e-test-net
+
+  e2e_test:
+    image: postman/newman:5.3-alpine
+    volumes:
+      - ./postman:/postman
+    command:
+      run /postman/workshop.postman_collection.json
+      -e /postman/workshop-e2e.postman_environment.json
+    depends_on:
+      - e2e_service
+    networks:
+      - e2e-test-net
+
+  db:
+    image: postgres:12.12
+    user: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: banking
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - e2e-test-net

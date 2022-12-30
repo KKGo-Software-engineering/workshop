@@ -25,6 +25,9 @@ jobs:
       - name: Integration test inside Docker-compose
         run: make test-integration
       
+      - name: E2E test inside Docker-compose
+        run: make test-e2e
+
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ghcr.io/kkgo-software-engineering/workshop:${{ env.GITHUB_SHA }}
 
