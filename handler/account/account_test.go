@@ -11,8 +11,8 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	hdr "github.com/kkgoo-software-engineering/workshop/handler"
-	"github.com/kkgoo-software-engineering/workshop/internal/config"
+	hdr "github.com/kkgo-software-engineering/workshop/handler"
+	"github.com/kkgo-software-engineering/workshop/internal/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )

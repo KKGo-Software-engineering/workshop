@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kkgoo-software-engineering/workshop/internal/config"
+	"github.com/kkgo-software-engineering/workshop/internal/config"
 	"github.com/labstack/echo/v4"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/assert"

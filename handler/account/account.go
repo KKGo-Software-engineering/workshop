@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"net/http"
 
-	hdr "github.com/kkgoo-software-engineering/workshop/handler"
-	"github.com/kkgoo-software-engineering/workshop/internal/config"
-	"github.com/kkgoo-software-engineering/workshop/internal/middleware/zapmw"
+	hdr "github.com/kkgo-software-engineering/workshop/handler"
+	"github.com/kkgo-software-engineering/workshop/internal/config"
+	"github.com/kkgo-software-engineering/workshop/internal/middleware/zapmw"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )

@@ -1,4 +1,4 @@
-module github.com/kkgoo-software-engineering/workshop
+module github.com/kkgo-software-engineering/workshop
 
 go 1.19
 
