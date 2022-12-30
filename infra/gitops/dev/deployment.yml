@@ -30,3 +30,13 @@ spec:
           limits:
             cpu: 100m
             memory: 256Mi
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 1323
+            httpHeaders:
+            - name: Authorization
+              value: 'basic YWRtaW46c2VjcmV0'
+          initialDelaySeconds: 3
+          periodSeconds: 3
+
