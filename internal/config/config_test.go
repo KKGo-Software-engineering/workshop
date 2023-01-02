@@ -36,7 +36,9 @@ func TestStringEnvironment(t *testing.T) {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", tc.key).Return(tc.osValue)
 			cfg.SetEnvGetter(mCfg)
+
 			got := cfg.envString(tc.key, tc.defaultValue)
+
 			assert.Equal(t, tc.want, got)
 		})
 	}
@@ -60,7 +62,9 @@ func TestIntEnvironment(t *testing.T) {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", tc.key).Return(tc.osValue)
 			cfg.SetEnvGetter(mCfg)
+
 			got := cfg.envInt(tc.key, tc.defaultValue)
+
 			assert.Equal(t, tc.want, got)
 		})
 	}
@@ -84,7 +88,9 @@ func TestBoolEnvironment(t *testing.T) {
 			mCfg := new(mockOsCfg)
 			mCfg.On("Getenv", tc.key).Return(tc.osValue)
 			cfg.SetEnvGetter(mCfg)
+
 			got := cfg.envBool(tc.key, tc.defaultValue)
+
 			assert.Equal(t, tc.want, got)
 		})
 	}
@@ -148,7 +154,9 @@ func TestGetAllConfig(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			mCfg := tc.mCfgFn()
 			cfg.SetEnvGetter(mCfg)
+
 			got := cfg.All()
+
 			assert.Equal(t, tc.want, got)
 		})
 	}
