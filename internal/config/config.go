@@ -5,12 +5,12 @@ import (
 	"strconv"
 )
 
-type envGetter interface {
+type env interface {
 	Getenv(key string) string
 }
 
 type cfg struct {
-	envGetter envGetter
+	env env
 }
 
 type osCfg struct{}
@@ -64,36 +64,36 @@ func (cfg *cfg) All() Config {
 	}
 }
 
-func (cfg *cfg) SetEnvGetter(overrideEnvGetter envGetter) {
-	cfg.envGetter = overrideEnvGetter
+func (cfg *cfg) SetEnvGetter(overrideEnvGetter env) {
+	cfg.env = overrideEnvGetter
 }
 
 func (cfg *cfg) envString(key, defaultValue string) string {
-	value := cfg.envGetter.Getenv(key)
-	if value == "" {
+	val := cfg.env.Getenv(key)
+	if val == "" {
 		return defaultValue
 	}
-	return value
+	return val
 }
 
 func (cfg *cfg) envInt(key string, defaultValue int) int {
-	value := cfg.envGetter.Getenv(key)
+	v := cfg.env.Getenv(key)
 
-	intValue, err := strconv.Atoi(value)
+	val, err := strconv.Atoi(v)
 	if err != nil {
 		return defaultValue
 	}
 
-	return intValue
+	return val
 }
 
 func (cfg *cfg) envBool(key string, defaultValue bool) bool {
-	value := cfg.envGetter.Getenv(key)
+	v := cfg.env.Getenv(key)
 
-	boolValue, err := strconv.ParseBool(value)
+	val, err := strconv.ParseBool(v)
 	if err != nil {
 		return defaultValue
 	}
 
-	return boolValue
+	return val
 }
