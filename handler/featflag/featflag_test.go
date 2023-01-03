@@ -33,7 +33,7 @@ func TestListFeatureFlag(t *testing.T) {
 			req := httptest.NewRequest(http.MethodGet, "/", nil)
 			rec := httptest.NewRecorder()
 			c := e.NewContext(req, rec)
-			h := New(&tc.cfg)
+			h := New(tc.cfg)
 
 			// Assertions
 			if assert.NoError(t, h.List(c)) {

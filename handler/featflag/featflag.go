@@ -11,10 +11,10 @@ import (
 )
 
 type handler struct {
-	cfg *config.Config
+	cfg config.Config
 }
 
-func New(cfg *config.Config) *handler {
+func New(cfg config.Config) *handler {
 	return &handler{cfg}
 }
 

@@ -15,7 +15,7 @@ import (
 func TestGetFeatFlagIT(t *testing.T) {
 	e := echo.New()
 
-	hFeatFlag := New(&config.Config{
+	hFeatFlag := New(config.Config{
 		FeatureFlag: config.FeatureFlag{IsLimitMaxBalanceOnCreate: true}})
 
 	e.GET("/features", hFeatFlag.List)

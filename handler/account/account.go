@@ -17,11 +17,11 @@ type Account struct {
 }
 
 type handler struct {
-	cfgFlag *config.FeatureFlag
+	cfgFlag config.FeatureFlag
 	db      *sql.DB
 }
 
-func New(cfgFlag *config.FeatureFlag, db *sql.DB) *handler {
+func New(cfgFlag config.FeatureFlag, db *sql.DB) *handler {
 	return &handler{cfgFlag, db}
 }
 
