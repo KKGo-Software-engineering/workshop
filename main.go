@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/authmw"
+	"github.com/kkgo-software-engineering/workshop/internal/middleware/auth"
 	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
 	"github.com/kkgo-software-engineering/workshop/internal/router"
 	"github.com/labstack/echo/v4"
@@ -39,7 +39,7 @@ func main() {
 	logmw := mlog.New(logger)
 	e.Use(logmw)
 
-	authmw := authmw.Authenicate()
+	authmw := auth.Authenicate()
 	e.Use(middleware.BasicAuth(authmw))
 
 	router.RegRoute(&cfg, e, sql)
