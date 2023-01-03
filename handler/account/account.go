@@ -36,7 +36,7 @@ var (
 )
 
 func (h handler) Create(c echo.Context) error {
-	logger := mlog.Logger(c)
+	logger := mlog.L(c)
 	ctx := c.Request().Context()
 	var ac Account
 	err := c.Bind(&ac)

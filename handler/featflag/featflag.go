@@ -20,7 +20,7 @@ func New(cfg *config.Config) *handler {
 
 func (h handler) List(c echo.Context) error {
 	// left this for an example
-	logger := mlog.Logger(c)
+	logger := mlog.L(c)
 	defer logger.Sync()
 	logger.Info("called api", zap.String("test-key", "test-value"))
 	//

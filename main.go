@@ -21,10 +21,13 @@ import (
 	_ "github.com/lib/pq"
 )
 
+// func NewServer(cfg config.Config) *echo.Echo {
+
+// }
+
 func main() {
 	cfg := config.New().All()
 	e := echo.New()
-	gCtx := context.Background()
 
 	logger, err := zap.NewProduction()
 	if err != nil {
@@ -36,7 +39,7 @@ func main() {
 		logger.Fatal("unable to configure database", zap.Error(err))
 	}
 
-	logmw := mlog.New(logger)
+	logmw := mlog.Middleware(logger)
 	e.Use(logmw)
 
 	authmw := auth.Authenicate()
@@ -58,6 +61,7 @@ func main() {
 	signal.Notify(quit, os.Interrupt)
 	<-quit
 
+	gCtx := context.Background()
 	ctx, cancel := context.WithTimeout(gCtx, 10*time.Second)
 	defer cancel()
 
