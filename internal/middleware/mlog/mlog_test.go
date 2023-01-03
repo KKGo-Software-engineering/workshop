@@ -1,6 +1,6 @@
 //go:build unit
 
-package zapmw
+package mlog
 
 import (
 	"net/http"
@@ -12,7 +12,7 @@ import (
 	"go.uber.org/zap"
 )
 
-func TestZapLogMiddleware(t *testing.T) {
+func TestLogMiddleware(t *testing.T) {
 	e := echo.New()
 	// error can be ignore IF it's a test.
 	logger, _ := zap.NewProduction()
@@ -25,7 +25,7 @@ func TestZapLogMiddleware(t *testing.T) {
 	assert.IsType(t, &zap.Logger{}, Logger(ctx))
 }
 
-func TestUnsetZapLogMiddleware(t *testing.T) {
+func TestUnsetLogMiddleware(t *testing.T) {
 	e := echo.New()
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
