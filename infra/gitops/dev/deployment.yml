@@ -17,7 +17,7 @@ spec:
         - name: secret-docker
       containers:
       - name: pun-api
-        image: ghcr.io/kkgo-software-engineering/workshop:a1dd2e836ad630ec79aa19bc9161802b58b670e2
+        image: ghcr.io/kkgo-software-engineering/workshop:391f3cd59549ecf52ecab44cd79b2ddfa1206ae6
         imagePullPolicy: Always
         ports:
         - containerPort: 1323
