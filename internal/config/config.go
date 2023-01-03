@@ -5,22 +5,14 @@ import (
 	"strconv"
 )
 
-type envGetter interface {
-	Getenv(key string) string
-}
+type env func(key string) string
 
 type cfg struct {
-	envGetter envGetter
-}
-
-type osCfg struct{}
-
-func (osCfg) Getenv(key string) string {
-	return os.Getenv(key)
+	getEnv env
 }
 
 func New() *cfg {
-	return &cfg{osCfg{}}
+	return &cfg{getEnv: os.Getenv}
 }
 
 type Config struct {
@@ -51,49 +43,49 @@ const (
 	dDBConnection = "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"
 )
 
-func (cfg *cfg) All() Config {
+func (c *cfg) All() Config {
 	return Config{
 		Server: Server{
-			Hostname: cfg.envString(cHostname, ""),
-			Port:     cfg.envInt(cPort, dPort),
+			Hostname: c.envString(cHostname, ""),
+			Port:     c.envInt(cPort, dPort),
 		},
 		FeatureFlag: FeatureFlag{
-			IsLimitMaxBalanceOnCreate: cfg.envBool(cFlagIsLimitMaxBalanceOnCreate, false),
+			IsLimitMaxBalanceOnCreate: c.envBool(cFlagIsLimitMaxBalanceOnCreate, false),
 		},
-		DBConnection: cfg.envString(cDBConnection, dDBConnection),
+		DBConnection: c.envString(cDBConnection, dDBConnection),
 	}
 }
 
-func (cfg *cfg) SetEnvGetter(overrideEnvGetter envGetter) {
-	cfg.envGetter = overrideEnvGetter
+func (c *cfg) SetEnvGetter(overrideEnvGetter env) {
+	c.getEnv = overrideEnvGetter
 }
 
-func (cfg *cfg) envString(key, defaultValue string) string {
-	value := cfg.envGetter.Getenv(key)
-	if value == "" {
+func (c *cfg) envString(key, defaultValue string) string {
+	val := c.getEnv(key)
+	if val == "" {
 		return defaultValue
 	}
-	return value
+	return val
 }
 
-func (cfg *cfg) envInt(key string, defaultValue int) int {
-	value := cfg.envGetter.Getenv(key)
+func (c *cfg) envInt(key string, defaultValue int) int {
+	v := c.getEnv(key)
 
-	intValue, err := strconv.Atoi(value)
+	val, err := strconv.Atoi(v)
 	if err != nil {
 		return defaultValue
 	}
 
-	return intValue
+	return val
 }
 
-func (cfg *cfg) envBool(key string, defaultValue bool) bool {
-	value := cfg.envGetter.Getenv(key)
+func (c *cfg) envBool(key string, defaultValue bool) bool {
+	v := c.getEnv(key)
 
-	boolValue, err := strconv.ParseBool(value)
+	val, err := strconv.ParseBool(v)
 	if err != nil {
 		return defaultValue
 	}
 
-	return boolValue
+	return val
 }

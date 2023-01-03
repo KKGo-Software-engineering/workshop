@@ -1,4 +1,4 @@
-package authmw
+package auth
 
 import (
 	"encoding/base64"

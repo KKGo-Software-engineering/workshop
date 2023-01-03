@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/zapmw"
+	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
 )
 
 type handler struct {
@@ -20,7 +20,7 @@ func New(cfg *config.Config) *handler {
 
 func (h handler) List(c echo.Context) error {
 	// left this for an example
-	logger := zapmw.Logger(c)
+	logger := mlog.Logger(c)
 	defer logger.Sync()
 	logger.Info("called api", zap.String("test-key", "test-value"))
 	//

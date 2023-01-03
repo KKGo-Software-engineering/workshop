@@ -6,7 +6,7 @@ import (
 
 	hdr "github.com/kkgo-software-engineering/workshop/handler"
 	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/zapmw"
+	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
@@ -36,7 +36,7 @@ var (
 )
 
 func (h handler) Create(c echo.Context) error {
-	logger := zapmw.Logger(c)
+	logger := mlog.Logger(c)
 	ctx := c.Request().Context()
 	var ac Account
 	err := c.Bind(&ac)

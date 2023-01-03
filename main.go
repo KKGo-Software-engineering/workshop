@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/authmw"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/zapmw"
+	"github.com/kkgo-software-engineering/workshop/internal/middleware/auth"
+	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
 	"github.com/kkgo-software-engineering/workshop/internal/router"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -36,10 +36,10 @@ func main() {
 		logger.Fatal("unable to configure database", zap.Error(err))
 	}
 
-	logmw := zapmw.New(logger)
+	logmw := mlog.New(logger)
 	e.Use(logmw)
 
-	authmw := authmw.Authenicate()
+	authmw := auth.Authenicate()
 	e.Use(middleware.BasicAuth(authmw))
 
 	router.RegRoute(&cfg, e, sql)
