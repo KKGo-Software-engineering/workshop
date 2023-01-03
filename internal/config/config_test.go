@@ -6,17 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
 )
-
-type mockOsCfg struct {
-	mock.Mock
-}
-
-func (m *mockOsCfg) Getenv(key string) string {
-	args := m.Called(key)
-	return args.String(0)
-}
 
 func TestStringEnvironment(t *testing.T) {
 	cfg := New()
@@ -33,8 +23,11 @@ func TestStringEnvironment(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			mCfg := new(mockOsCfg)
-			mCfg.On("Getenv", tc.key).Return(tc.osValue)
+			mCfg := func(key string) string {
+				return map[string]string{
+					tc.key: tc.osValue,
+				}[key]
+			}
 			cfg.SetEnvGetter(mCfg)
 
 			got := cfg.envString(tc.key, tc.defaultValue)
@@ -59,8 +52,11 @@ func TestIntEnvironment(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			mCfg := new(mockOsCfg)
-			mCfg.On("Getenv", tc.key).Return(tc.osValue)
+			mCfg := func(key string) string {
+				return map[string]string{
+					tc.key: tc.osValue,
+				}[key]
+			}
 			cfg.SetEnvGetter(mCfg)
 
 			got := cfg.envInt(tc.key, tc.defaultValue)
@@ -85,8 +81,11 @@ func TestBoolEnvironment(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			mCfg := new(mockOsCfg)
-			mCfg.On("Getenv", tc.key).Return(tc.osValue)
+			mCfg := func(key string) string {
+				return map[string]string{
+					tc.key: tc.osValue,
+				}[key]
+			}
 			cfg.SetEnvGetter(mCfg)
 
 			got := cfg.envBool(tc.key, tc.defaultValue)
@@ -99,60 +98,50 @@ func TestBoolEnvironment(t *testing.T) {
 func TestGetAllConfig(t *testing.T) {
 	cfg := New()
 	tests := []struct {
-		name   string
-		mCfgFn func() *mockOsCfg
-		want   Config
+		name string
+		mock map[string]string
+		want Config
 	}{
 		{"no config env should return default config",
-			func() *mockOsCfg {
-				return defaultMock(cHostname, cPort, cFlagIsLimitMaxBalanceOnCreate, cDBConnection)
-			},
-			Config{Server: Server{Port: 1323},
+			map[string]string{cHostname: "", cPort: "", cFlagIsLimitMaxBalanceOnCreate: "", cDBConnection: ""},
+			Config{
+				Server:       Server{Port: 1323},
 				DBConnection: dDBConnection}},
-		{"config hostname env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock(cPort, cFlagIsLimitMaxBalanceOnCreate, cDBConnection)
-			mCfg.On("Getenv", cHostname).Return("test-hostname")
-			return mCfg
-		}, Config{Server: Server{Hostname: "test-hostname", Port: 1323},
-			DBConnection: dDBConnection}},
-		{"config port env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock(cHostname, cFlagIsLimitMaxBalanceOnCreate, cDBConnection)
-			mCfg.On("Getenv", cPort).Return("4444")
-			return mCfg
-		}, Config{Server: Server{Port: 4444},
-			DBConnection: dDBConnection}},
-		{"config bool FLAG_IS_LIMIT_MAX_SPEND_ON_CREATE env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock(cPort, cHostname, cDBConnection)
-			mCfg.On("Getenv", cFlagIsLimitMaxBalanceOnCreate).Return("TRUE")
-			return mCfg
-		}, Config{
-			Server:       Server{Port: 1323},
-			FeatureFlag:  FeatureFlag{IsLimitMaxBalanceOnCreate: true},
-			DBConnection: dDBConnection}},
-		{"config DB_CONNECTION env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock(cPort, cHostname, cFlagIsLimitMaxBalanceOnCreate)
-			mCfg.On("Getenv", cDBConnection).Return("test-db-connection")
-			return mCfg
-		}, Config{
-			Server:       Server{Port: 1323},
-			DBConnection: "test-db-connection"}},
-		{"config all env should return as changed", func() *mockOsCfg {
-			mCfg := defaultMock()
-			mCfg.On("Getenv", cHostname).Return("test-hostname")
-			mCfg.On("Getenv", cPort).Return("4444")
-			mCfg.On("Getenv", cFlagIsLimitMaxBalanceOnCreate).Return("TRUE")
-			mCfg.On("Getenv", cDBConnection).Return("test-db-connection")
-			return mCfg
-		}, Config{
-			Server:       Server{Hostname: "test-hostname", Port: 4444},
-			FeatureFlag:  FeatureFlag{IsLimitMaxBalanceOnCreate: true},
-			DBConnection: "test-db-connection",
-		}},
+		{"config hostname env should return as changed",
+			map[string]string{cHostname: "test-hostname"},
+			Config{
+				Server:       Server{Hostname: "test-hostname", Port: 1323},
+				DBConnection: dDBConnection}},
+		{"config port env should return as changed",
+			map[string]string{cPort: "4444"},
+			Config{
+				Server:       Server{Port: 4444},
+				DBConnection: dDBConnection}},
+		{"config bool FLAG_IS_LIMIT_MAX_SPEND_ON_CREATE env should return as changed",
+			map[string]string{cFlagIsLimitMaxBalanceOnCreate: "TRUE"},
+			Config{
+				Server:       Server{Port: 1323},
+				FeatureFlag:  FeatureFlag{IsLimitMaxBalanceOnCreate: true},
+				DBConnection: dDBConnection}},
+		{"config DB_CONNECTION env should return as changed",
+			map[string]string{cDBConnection: "test-db-connection"},
+			Config{
+				Server:       Server{Port: 1323},
+				DBConnection: "test-db-connection"}},
+		{"config all env should return as changed",
+			map[string]string{cHostname: "test-hostname", cPort: "4444", cFlagIsLimitMaxBalanceOnCreate: "TRUE", cDBConnection: "test-db-connection"},
+			Config{
+				Server:       Server{Hostname: "test-hostname", Port: 4444},
+				FeatureFlag:  FeatureFlag{IsLimitMaxBalanceOnCreate: true},
+				DBConnection: "test-db-connection",
+			}},
 	}
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			mCfg := tc.mCfgFn()
+			mCfg := func(key string) string {
+				return tc.mock[key]
+			}
 			cfg.SetEnvGetter(mCfg)
 
 			got := cfg.All()
@@ -160,12 +149,4 @@ func TestGetAllConfig(t *testing.T) {
 			assert.Equal(t, tc.want, got)
 		})
 	}
-}
-
-func defaultMock(envs ...string) *mockOsCfg {
-	mCfg := new(mockOsCfg)
-	for _, env := range envs {
-		mCfg.On("Getenv", env).Return("")
-	}
-	return mCfg
 }

@@ -5,22 +5,14 @@ import (
 	"strconv"
 )
 
-type env interface {
-	Getenv(key string) string
-}
+type env func(key string) string
 
 type cfg struct {
-	env env
-}
-
-type osCfg struct{}
-
-func (osCfg) Getenv(key string) string {
-	return os.Getenv(key)
+	getEnv env
 }
 
 func New() *cfg {
-	return &cfg{osCfg{}}
+	return &cfg{getEnv: os.Getenv}
 }
 
 type Config struct {
@@ -51,33 +43,33 @@ const (
 	dDBConnection = "postgresql://postgres:password@localhost:5432/banking?sslmode=disable"
 )
 
-func (cfg *cfg) All() Config {
+func (c *cfg) All() Config {
 	return Config{
 		Server: Server{
-			Hostname: cfg.envString(cHostname, ""),
-			Port:     cfg.envInt(cPort, dPort),
+			Hostname: c.envString(cHostname, ""),
+			Port:     c.envInt(cPort, dPort),
 		},
 		FeatureFlag: FeatureFlag{
-			IsLimitMaxBalanceOnCreate: cfg.envBool(cFlagIsLimitMaxBalanceOnCreate, false),
+			IsLimitMaxBalanceOnCreate: c.envBool(cFlagIsLimitMaxBalanceOnCreate, false),
 		},
-		DBConnection: cfg.envString(cDBConnection, dDBConnection),
+		DBConnection: c.envString(cDBConnection, dDBConnection),
 	}
 }
 
-func (cfg *cfg) SetEnvGetter(overrideEnvGetter env) {
-	cfg.env = overrideEnvGetter
+func (c *cfg) SetEnvGetter(overrideEnvGetter env) {
+	c.getEnv = overrideEnvGetter
 }
 
-func (cfg *cfg) envString(key, defaultValue string) string {
-	val := cfg.env.Getenv(key)
+func (c *cfg) envString(key, defaultValue string) string {
+	val := c.getEnv(key)
 	if val == "" {
 		return defaultValue
 	}
 	return val
 }
 
-func (cfg *cfg) envInt(key string, defaultValue int) int {
-	v := cfg.env.Getenv(key)
+func (c *cfg) envInt(key string, defaultValue int) int {
+	v := c.getEnv(key)
 
 	val, err := strconv.Atoi(v)
 	if err != nil {
@@ -87,8 +79,8 @@ func (cfg *cfg) envInt(key string, defaultValue int) int {
 	return val
 }
 
-func (cfg *cfg) envBool(key string, defaultValue bool) bool {
-	v := cfg.env.Getenv(key)
+func (c *cfg) envBool(key string, defaultValue bool) bool {
+	v := c.getEnv(key)
 
 	val, err := strconv.ParseBool(v)
 	if err != nil {
