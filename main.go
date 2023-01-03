@@ -39,8 +39,7 @@ func main() {
 		logger.Fatal("unable to configure database", zap.Error(err))
 	}
 
-	logmw := mlog.Middleware(logger)
-	e.Use(logmw)
+	e.Use(mlog.Middleware(logger))
 
 	authmw := auth.Authenicate()
 	e.Use(middleware.BasicAuth(authmw))
