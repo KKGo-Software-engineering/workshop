@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"net/http"
 
-	"github.com/kkgo-software-engineering/workshop/handler/account"
-	"github.com/kkgo-software-engineering/workshop/handler/featflag"
-	"github.com/kkgo-software-engineering/workshop/handler/healthchk"
+	"github.com/kkgo-software-engineering/workshop/account"
+	"github.com/kkgo-software-engineering/workshop/featflag"
+	"github.com/kkgo-software-engineering/workshop/healthchk"
 	"github.com/kkgo-software-engineering/workshop/internal/config"
 	"github.com/kkgo-software-engineering/workshop/internal/middleware/auth"
 	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"

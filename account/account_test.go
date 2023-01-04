@@ -11,7 +11,6 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	hdr "github.com/kkgo-software-engineering/workshop/handler"
 	"github.com/kkgo-software-engineering/workshop/internal/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
@@ -106,7 +105,7 @@ func TestCreateAccount_Error(t *testing.T) {
 				return nil, nil
 			},
 			`ba`,
-			hdr.ErrBadRequest,
+			echo.NewHTTPError(http.StatusBadRequest, "bad request body"),
 		},
 		{"create account balance exceed limitation and enable feature should failed",
 			config.FeatureFlag{IsLimitMaxBalanceOnCreate: true},
@@ -131,7 +130,7 @@ func TestCreateAccount_Error(t *testing.T) {
 
 			berr := h.Create(c)
 			// Assertions
-			assert.ErrorIs(t, berr, tc.wantErr)
+			assert.Equal(t, berr, tc.wantErr)
 		})
 	}
 }

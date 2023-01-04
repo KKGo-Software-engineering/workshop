@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"net/http"
 
-	hdr "github.com/kkgo-software-engineering/workshop/handler"
 	"github.com/kkgo-software-engineering/workshop/internal/config"
 	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
 	"github.com/labstack/echo/v4"
@@ -42,7 +41,7 @@ func (h handler) Create(c echo.Context) error {
 	err := c.Bind(&ac)
 	if err != nil {
 		logger.Error("bad request body", zap.Error(err))
-		return hdr.ErrBadRequest
+		return echo.NewHTTPError(http.StatusBadRequest, "bad request body", err.Error())
 	}
 
 	if h.cfg.IsLimitMaxBalanceOnCreate && ac.Balance > cBalanceLimit {
