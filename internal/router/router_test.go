@@ -9,17 +9,18 @@ import (
 	"testing"
 
 	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/zap"
 )
 
 // this one probably not necessarily to test, it's really straight forward
 func TestRegisterRoute(t *testing.T) {
-	e := echo.New()
+	e := RegRoute(config.Config{}, zap.NewNop(), &sql.DB{})
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
-	RegRoute(config.Config{}, e, &sql.DB{})
+
 	rts := e.Routes()
+
 	assert.Equal(t, len(rts), 4)
 }

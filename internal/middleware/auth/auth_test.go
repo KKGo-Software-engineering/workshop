@@ -29,7 +29,9 @@ func TestAuthMiddleware(t *testing.T) {
 		auth := "basic " + base64.StdEncoding.EncodeToString([]byte(tc.auth))
 		req.Header.Set(echo.HeaderAuthorization, auth)
 		rec := httptest.NewRecorder()
+
 		e.ServeHTTP(rec, req)
+
 		assert.Equal(t, tc.wantStatusCode, rec.Code)
 	}
 }

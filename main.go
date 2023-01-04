@@ -11,23 +11,11 @@ import (
 	"time"
 
 	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/auth"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
 	"github.com/kkgo-software-engineering/workshop/internal/router"
-	"github.com/labstack/echo/middleware"
-	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
 	_ "github.com/lib/pq"
 )
-
-func server(cfg config.Config, logger *zap.Logger, sql *sql.DB) *echo.Echo {
-	e := echo.New()
-	e.Use(mlog.Middleware(logger))
-	e.Use(middleware.BasicAuth(auth.Authenicate()))
-	router.RegRoute(cfg, e, sql)
-	return e
-}
 
 func main() {
 	cfg := config.New().All()
@@ -42,7 +30,7 @@ func main() {
 		logger.Fatal("unable to configure database", zap.Error(err))
 	}
 
-	e := server(cfg, logger, sql)
+	e := router.RegRoute(cfg, logger, sql)
 
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
 

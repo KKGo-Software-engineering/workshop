@@ -23,7 +23,7 @@ func TestCreateAccountIT(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	cfgFlag := &config.FeatureFlag{}
+	cfgFlag := config.FeatureFlag{}
 
 	hAccount := New(cfgFlag, sql)
 
@@ -33,6 +33,7 @@ func TestCreateAccountIT(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/accounts", strings.NewReader(reqBody))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
+	
 	e.ServeHTTP(rec, req)
 
 	expected := `{"id": 1, "balance": 999.99}`

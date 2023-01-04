@@ -17,8 +17,8 @@ type Account struct {
 }
 
 type handler struct {
-	cfgFlag config.FeatureFlag
-	db      *sql.DB
+	cfg config.FeatureFlag
+	db  *sql.DB
 }
 
 func New(cfgFlag config.FeatureFlag, db *sql.DB) *handler {
@@ -45,7 +45,7 @@ func (h handler) Create(c echo.Context) error {
 		return hdr.ErrBadRequest
 	}
 
-	if h.cfgFlag.IsLimitMaxBalanceOnCreate && ac.Balance > cBalanceLimit {
+	if h.cfg.IsLimitMaxBalanceOnCreate && ac.Balance > cBalanceLimit {
 		logger.Error("account limit on account creating", zap.Error(hErrBalanceLimitExceed))
 		return hErrBalanceLimitExceed
 	}
