@@ -6,8 +6,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
+	"github.com/kkgo-software-engineering/workshop/config"
+	"github.com/kkgo-software-engineering/workshop/middleware/mlog"
 )
 
 type handler struct {

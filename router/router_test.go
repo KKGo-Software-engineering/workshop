@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/kkgo-software-engineering/workshop/internal/config"
+	"github.com/kkgo-software-engineering/workshop/config"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/zap"
 )

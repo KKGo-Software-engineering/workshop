@@ -10,8 +10,8 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/router"
+	"github.com/kkgo-software-engineering/workshop/config"
+	"github.com/kkgo-software-engineering/workshop/router"
 	"go.uber.org/zap"
 
 	_ "github.com/lib/pq"
