@@ -8,8 +8,8 @@ import (
 	"github.com/kkgo-software-engineering/workshop/config"
 	"github.com/kkgo-software-engineering/workshop/featflag"
 	"github.com/kkgo-software-engineering/workshop/healthchk"
-	"github.com/kkgo-software-engineering/workshop/middleware/auth"
-	"github.com/kkgo-software-engineering/workshop/middleware/mlog"
+	mw "github.com/kkgo-software-engineering/workshop/middleware"
+	"github.com/kkgo-software-engineering/workshop/mlog"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
@@ -18,7 +18,7 @@ import (
 func RegRoute(cfg config.Config, logger *zap.Logger, db *sql.DB) *echo.Echo {
 	e := echo.New()
 	e.Use(mlog.Middleware(logger))
-	e.Use(middleware.BasicAuth(auth.Authenicate()))
+	e.Use(middleware.BasicAuth(mw.Authenicate()))
 
 	hHealthChk := healthchk.New(db)
 	e.GET("/healthz", hHealthChk.Check) // TODO: did help need auth?

@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/kkgo-software-engineering/workshop/config"
-	"github.com/kkgo-software-engineering/workshop/middleware/mlog"
+	"github.com/kkgo-software-engineering/workshop/mlog"
 )
 
 type handler struct {
