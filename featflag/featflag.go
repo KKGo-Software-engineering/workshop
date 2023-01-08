@@ -6,21 +6,21 @@ import (
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 
-	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
+	"github.com/kkgo-software-engineering/workshop/config"
+	"github.com/kkgo-software-engineering/workshop/mlog"
 )
 
 type handler struct {
-	cfg *config.Config
+	cfg config.Config
 }
 
-func New(cfg *config.Config) *handler {
+func New(cfg config.Config) *handler {
 	return &handler{cfg}
 }
 
 func (h handler) List(c echo.Context) error {
 	// left this for an example
-	logger := mlog.Logger(c)
+	logger := mlog.L(c)
 	defer logger.Sync()
 	logger.Info("called api", zap.String("test-key", "test-value"))
 	//

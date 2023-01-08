@@ -11,8 +11,7 @@ import (
 	"testing"
 
 	"github.com/DATA-DOG/go-sqlmock"
-	hdr "github.com/kkgo-software-engineering/workshop/handler"
-	"github.com/kkgo-software-engineering/workshop/internal/config"
+	"github.com/kkgo-software-engineering/workshop/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
@@ -20,14 +19,14 @@ import (
 func TestCreateAccount(t *testing.T) {
 	tests := []struct {
 		name       string
-		cfgFlag    *config.FeatureFlag
+		cfgFlag    config.FeatureFlag
 		sqlFn      func() (*sql.DB, error)
 		reqBody    string
 		wantStatus int
 		wantBody   string
 	}{
 		{"create account succesfully",
-			&config.FeatureFlag{},
+			config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 				if err != nil {
@@ -42,7 +41,7 @@ func TestCreateAccount(t *testing.T) {
 			`{"id": 1, "balance": 1000.0}`,
 		},
 		{"create account balance exceed limitation and disable feature should successfull",
-			&config.FeatureFlag{},
+			config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 				if err != nil {
@@ -82,13 +81,13 @@ func TestCreateAccount_Error(t *testing.T) {
 	someErr := errors.New("some random error")
 	tests := []struct {
 		name    string
-		cfgFlag *config.FeatureFlag
+		cfgFlag config.FeatureFlag
 		sqlFn   func() (*sql.DB, error)
 		reqBody string
 		wantErr error
 	}{
 		{"create account failed",
-			&config.FeatureFlag{},
+			config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 				if err != nil {
@@ -101,15 +100,15 @@ func TestCreateAccount_Error(t *testing.T) {
 			someErr,
 		},
 		{"create with bad request",
-			&config.FeatureFlag{},
+			config.FeatureFlag{},
 			func() (*sql.DB, error) {
 				return nil, nil
 			},
 			`ba`,
-			hdr.ErrBadRequest,
+			echo.NewHTTPError(http.StatusBadRequest, "bad request body"),
 		},
 		{"create account balance exceed limitation and enable feature should failed",
-			&config.FeatureFlag{IsLimitMaxBalanceOnCreate: true},
+			config.FeatureFlag{IsLimitMaxBalanceOnCreate: true},
 			func() (*sql.DB, error) {
 				return nil, nil
 			},
@@ -131,7 +130,7 @@ func TestCreateAccount_Error(t *testing.T) {
 
 			berr := h.Create(c)
 			// Assertions
-			assert.ErrorIs(t, berr, tc.wantErr)
+			assert.Equal(t, berr, tc.wantErr)
 		})
 	}
 }

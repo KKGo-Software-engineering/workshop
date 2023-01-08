@@ -16,13 +16,13 @@ func TestLogMiddleware(t *testing.T) {
 	e := echo.New()
 	// error can be ignore IF it's a test.
 	logger, _ := zap.NewProduction()
-	mw := New(logger)
+	mw := Middleware(logger)
 	e.Use(mw)
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
 	ctx := e.AcquireContext()
-	assert.IsType(t, &zap.Logger{}, Logger(ctx))
+	assert.IsType(t, &zap.Logger{}, L(ctx))
 }
 
 func TestUnsetLogMiddleware(t *testing.T) {
@@ -31,5 +31,5 @@ func TestUnsetLogMiddleware(t *testing.T) {
 	rec := httptest.NewRecorder()
 	e.ServeHTTP(rec, req)
 	ctx := e.AcquireContext()
-	assert.IsType(t, &zap.Logger{}, Logger(ctx))
+	assert.IsType(t, &zap.Logger{}, L(ctx))
 }

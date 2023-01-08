@@ -4,9 +4,8 @@ import (
 	"database/sql"
 	"net/http"
 
-	hdr "github.com/kkgo-software-engineering/workshop/handler"
-	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
+	"github.com/kkgo-software-engineering/workshop/config"
+	"github.com/kkgo-software-engineering/workshop/mlog"
 	"github.com/labstack/echo/v4"
 	"go.uber.org/zap"
 )
@@ -17,11 +16,11 @@ type Account struct {
 }
 
 type handler struct {
-	cfgFlag *config.FeatureFlag
-	db      *sql.DB
+	cfg config.FeatureFlag
+	db  *sql.DB
 }
 
-func New(cfgFlag *config.FeatureFlag, db *sql.DB) *handler {
+func New(cfgFlag config.FeatureFlag, db *sql.DB) *handler {
 	return &handler{cfgFlag, db}
 }
 
@@ -36,16 +35,16 @@ var (
 )
 
 func (h handler) Create(c echo.Context) error {
-	logger := mlog.Logger(c)
+	logger := mlog.L(c)
 	ctx := c.Request().Context()
 	var ac Account
 	err := c.Bind(&ac)
 	if err != nil {
 		logger.Error("bad request body", zap.Error(err))
-		return hdr.ErrBadRequest
+		return echo.NewHTTPError(http.StatusBadRequest, "bad request body", err.Error())
 	}
 
-	if h.cfgFlag.IsLimitMaxBalanceOnCreate && ac.Balance > cBalanceLimit {
+	if h.cfg.IsLimitMaxBalanceOnCreate && ac.Balance > cBalanceLimit {
 		logger.Error("account limit on account creating", zap.Error(hErrBalanceLimitExceed))
 		return hErrBalanceLimitExceed
 	}

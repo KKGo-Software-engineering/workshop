@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kkgo-software-engineering/workshop/internal/config"
+	"github.com/kkgo-software-engineering/workshop/config"
 	"github.com/labstack/echo/v4"
 	_ "github.com/lib/pq"
 	"github.com/stretchr/testify/assert"
@@ -23,7 +23,7 @@ func TestCreateAccountIT(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	cfgFlag := &config.FeatureFlag{}
+	cfgFlag := config.FeatureFlag{}
 
 	hAccount := New(cfgFlag, sql)
 
@@ -33,6 +33,7 @@ func TestCreateAccountIT(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/accounts", strings.NewReader(reqBody))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
+
 	e.ServeHTTP(rec, req)
 
 	expected := `{"id": 1, "balance": 999.99}`

@@ -10,12 +10,8 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/kkgo-software-engineering/workshop/internal/config"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/auth"
-	"github.com/kkgo-software-engineering/workshop/internal/middleware/mlog"
-	"github.com/kkgo-software-engineering/workshop/internal/router"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"github.com/kkgo-software-engineering/workshop/config"
+	"github.com/kkgo-software-engineering/workshop/router"
 	"go.uber.org/zap"
 
 	_ "github.com/lib/pq"
@@ -23,8 +19,6 @@ import (
 
 func main() {
 	cfg := config.New().All()
-	e := echo.New()
-	gCtx := context.Background()
 
 	logger, err := zap.NewProduction()
 	if err != nil {
@@ -36,13 +30,7 @@ func main() {
 		logger.Fatal("unable to configure database", zap.Error(err))
 	}
 
-	logmw := mlog.New(logger)
-	e.Use(logmw)
-
-	authmw := auth.Authenicate()
-	e.Use(middleware.BasicAuth(authmw))
-
-	router.RegRoute(&cfg, e, sql)
+	e := router.RegRoute(cfg, logger, sql)
 
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Hostname, cfg.Server.Port)
 
@@ -58,6 +46,7 @@ func main() {
 	signal.Notify(quit, os.Interrupt)
 	<-quit
 
+	gCtx := context.Background()
 	ctx, cancel := context.WithTimeout(gCtx, 10*time.Second)
 	defer cancel()
 

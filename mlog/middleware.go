@@ -6,9 +6,7 @@ import (
 	"go.uber.org/zap"
 )
 
-const key = "logger"
-
-func New(logger *zap.Logger) echo.MiddlewareFunc {
+func Middleware(logger *zap.Logger) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return logMiddleware(next, logger)
 	}
@@ -30,13 +28,4 @@ func logParentID(c echo.Context, logger *zap.Logger) *zap.Logger {
 	xSpan := uuid.NewString()
 	return logger.With(zap.String("parent-id", xParent),
 		zap.String("span-id", xSpan))
-}
-
-func Logger(c echo.Context) *zap.Logger {
-	switch logger := c.Get(key).(type) {
-	case *zap.Logger:
-		return logger
-	default:
-		return zap.NewNop()
-	}
 }

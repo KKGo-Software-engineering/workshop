@@ -7,7 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/kkgo-software-engineering/workshop/internal/config"
+	"github.com/kkgo-software-engineering/workshop/config"
 	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
@@ -15,7 +15,7 @@ import (
 func TestGetFeatFlagIT(t *testing.T) {
 	e := echo.New()
 
-	hFeatFlag := New(&config.Config{
+	hFeatFlag := New(config.Config{
 		FeatureFlag: config.FeatureFlag{IsLimitMaxBalanceOnCreate: true}})
 
 	e.GET("/features", hFeatFlag.List)
