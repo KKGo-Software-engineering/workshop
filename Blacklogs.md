@@ -262,6 +262,7 @@ This story ensure that, only authorized users are able to access and make change
 
 ความต้องการนี้ทำให้แน่ใจว่าเฉพาะผู้ใช้ที่ได้รับอนุญาตเข้าถึงและเปลี่ยนแปลงทรัพยากรในระบบกระเป๋าเคลื่อนที่ได้ และว่าระบบมีเกณฑ์ป้องกันความปลอดภัยของข้อมูลประจำตัวของผู้ใช้และการสร้างบัญชีและเข้าถึงได้
 
+## [PENDING] trasfer and request money between users
 
 ## Technical guide
 - GET /cloud-pockets: Retrieve a list of all cloud pockets belonging to the authenticated user.
