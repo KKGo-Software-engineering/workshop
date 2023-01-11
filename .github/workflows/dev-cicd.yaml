@@ -2,8 +2,7 @@ name: Dev environment CI and CD
 
 on:
   push:
-    branches: [main]
-  pull_request:
+    branches: [main, hotfix]
 
 jobs:
   # ==============
