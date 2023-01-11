@@ -191,18 +191,18 @@ This story make sure that the user can't accidentally transfer money more than w
 เรื่องราวนี้ให้ความรู้ในแอป เพื่อให้แอปตรวจสามารถตรวจสอบว่าผู้ใช้มีเงินเพียงพอใน cloud pocket ต้นทางก่อนที่จะทำการโอน เพื่อป้องกันการถอนเงินเกินจำนวนโดยอัตโนมัติ และสามารถแจ้งเตือนผู้ใช้ถ้าเกิดข้อผิดพลาดในการโอนเงินได้
 
 ## Technical guide
-GET /cloud-pockets: Retrieve a list of all cloud pockets belonging to the authenticated user.
-POST /cloud-pockets: Create a new cloud pocket. The request body should contain the name, currency and initial balance of the cloud pocket.
-GET /cloud-pockets/:id: Retrieve the details of a specific cloud pocket, identified by its ID.
-PUT /cloud-pockets/:id: Update the details of a specific cloud pocket, identified by its ID.
-DELETE /cloud-pockets/:id: Delete a specific cloud pocket, identified by its ID.
-GET /cloud-pockets/:id/transactions: Retrieve the transaction history of a specific cloud pocket.
-POST /cloud-pockets/transfer: Transfer funds from one cloud pocket to another. The request body should contain the source cloud pocket ID, destination cloud pocket ID, amount and currency.
-GET /cloud-pockets/:id/balance: Retrieve the current balance of a specific cloud pocket,
-GET /cloud-pockets/:id/monthly-balance: Retrieve the aggregate monthly balance of a specific cloud pocket.
-GET /cloud-pockets/:id/csv: export transaction history of a specific cloud pocket as .csv file
+- GET /cloud-pockets: Retrieve a list of all cloud pockets belonging to the authenticated user.
+- POST /cloud-pockets: Create a new cloud pocket. The request body should contain the name, currency and initial balance of the cloud pocket.
+- GET /cloud-pockets/:id: Retrieve the details of a specific cloud pocket, identified by its ID.
+- PUT /cloud-pockets/:id: Update the details of a specific cloud pocket, identified by its ID.
+- DELETE /cloud-pockets/:id: Delete a specific cloud pocket, identified by its ID.
+- GET /cloud-pockets/:id/transactions: Retrieve the transaction history of a specific cloud pocket.
+- POST /cloud-pockets/transfer: Transfer funds from one cloud pocket to another. The request body should contain the source cloud pocket ID, destination cloud pocket ID, amount and currency.
+- GET /cloud-pockets/:id/balance: Retrieve the current balance of a specific cloud pocket,
+- GET /cloud-pockets/:id/monthly-balance: Retrieve the aggregate monthly balance of a specific cloud pocket.
+- GET /cloud-pockets/:id/csv: export transaction history of a specific cloud pocket as .csv file
 
-GET /cloud-pockets: 
+- GET /cloud-pockets: 
 Response Body
 [
   {
@@ -221,7 +221,7 @@ Response Body
   }
 ]
 
-POST /cloud-pockets:
+- POST /cloud-pockets:
 Request Body
 {
     "name": "Travel Fund",
@@ -237,7 +237,7 @@ Reponse Body
     "balance": 100.00
 }
 
-GET /cloud-pockets/:id: 
+- GET /cloud-pockets/:id: 
 Reponse Body
 {
     "id": "12345",
@@ -247,7 +247,7 @@ Reponse Body
     "balance": 100.00
 }
 
-PUT /cloud-pockets/:id:
+- PUT /cloud-pockets/:id:
 Request Body
 {
     "name": "Holiday Fund",
@@ -263,7 +263,7 @@ Reponse Body
     "balance": 150.00
 }
 
-DELETE /cloud-pockets/:id:
+- DELETE /cloud-pockets/:id:
 {
     "message": "Cloud pocket deleted successfully"
 }
@@ -274,7 +274,7 @@ DELETE /cloud-pockets/:id:
 }
 
 
-GET /cloud-pockets/:id/transactions: This endpoint does not require a request body.
+- GET /cloud-pockets/:id/transactions: This endpoint does not require a request body.
 Reponse Body
 {
     "id": "12345",
@@ -294,7 +294,7 @@ Reponse Body
     ]
 }
 
-POST /cloud-pockets/transfer:
+- POST /cloud-pockets/transfer:
 Request body:
 
 {
@@ -327,7 +327,7 @@ or
     "error_message":"Not enough balance in the source cloud pocket",
     "status":"Failed"
 }
-GET /cloud-pockets/:id/transactions :
+- GET /cloud-pockets/:id/transactions :
 Request body: None
 Response body:
 
@@ -354,7 +354,7 @@ Response body:
     ]
 }'
 
-GET /cloud-pockets/:id/balance: 
+- GET /cloud-pockets/:id/balance: 
 Reponse Body
 {
     "id": "12345",
@@ -362,7 +362,7 @@ Reponse Body
     "currency": "USD"
 }
 
-GET /cloud-pockets/:id/monthly-balance
+-GET /cloud-pockets/:id/monthly-balance
 Reponse Body
 {
     "id": "12345",
@@ -380,9 +380,9 @@ Reponse Body
     ]
 }
 
-GET /cloud-pockets/:id/csv: This endpoint does not require a request body.
+- GET /cloud-pockets/:id/csv: This endpoint does not require a request body.
 
-POST /cloud-pockets/transfer:
+- POST /cloud-pockets/transfer:
 Request body:
 
 {
@@ -408,7 +408,7 @@ Response body:
         "balance": 250.00
     }
 }
-GET /cloud-pockets/:id/transactions:
+- GET /cloud-pockets/:id/transactions:
 Request body: None
 Response body:
 
