@@ -205,6 +205,31 @@ This story make sure that the user can't accidentally transfer money more than w
 
 ความต้องการนี้เพื่อให้แอปตรวจสามารถตรวจสอบว่าผู้ใช้มีเงินเพียงพอใน cloud pocket ต้นทางก่อนที่จะทำการโอน เพื่อป้องกันการถอนเงินเกินจำนวนโดยอัตโนมัติ และสามารถแจ้งเตือนผู้ใช้ถ้าเกิดข้อผิดพลาดในการโอนเงินได้
 
+## Delete Cloud Pocket feature
+### Story:
+* As a user,
+* I want to be able to delete a "cloud pocket" within my mobile banking app,
+* so that I can manage my money more effectively and remove pockets that I no longer need.
+
+Acceptance Criteria:
+
+- I can delete a "cloud pocket" from the app's home screen
+- I can only delete a "cloud pocket" if its balance is zero, if there's money in it, the system should prompt a message saying that it can't be deleted.
+- After the deletion, I can view the transaction history of the deleted cloud pocket for a certain period of time (e.g. 30 days)
+- I can still access the transaction history of the deleted cloud pocket by using a transaction history endpoint.
+- After the certain period of time, the transaction history of the deleted cloud pocket will be permanently deleted from the system as well
+
+* ในฐานะผู้ใช้,
+* ฉันต้องการที่จะสามารถลบ "กระเป๋าเงินในคลาวด์" ในแอพมือถือธนาคารของฉันได้
+* เพื่อให้ฉันสามารถจัดการเงินของฉันได้อย่างมีประสิทธิภาพและลบกระเป๋าที่ฉันไม่ได้ใช้อีกต่อไป
+
+เงื่อนไขที่ต้องปฏิบัติ:
+
+- ฉันสามารถลบ "กระเป๋าเงินในคลาวด์" จากหน้าแรกของแอพ
+- ฉันสามารถลบ "กระเป๋าเงินในคลาวด์" ได้เมื่อเงินในกระเป๋านั้นเป็นศูนย์ หากมีเงินในนั้น ระบบจะแจ้งเตือนว่าไม่สามารถลบได้
+- หลังจากการลบ ฉันยังสามารถดูประวัติการโอนเงินของกระเป๋าเงินที่ถูกลบ ภายในช่วงเวลาที่กำหนด (เช่น 30 วัน)
+- ฉันสามารถเข้าถึงประวัติการโอนเงินของกระเป๋าเงินที่ถูกลบ โดยใช้ endpoint transaction
+- หลังจากช่วงเวลาที่กำหนด ประวัติการโอนเงินของกระเป๋าเงินที่ถูกลบจะถูกลบออกจากระบบแบบถาวร
 
 ## Aunthentication and Authorization feature
 ### Story:
@@ -340,6 +365,12 @@ Reponse Body
 	{
 			"message": "Cloud pocket deleted successfully"
 	}
+```
+
+```json
+{
+    "message":"Unable to delete this Cloud Pocket\n there is amount left in this Cloud Pocket, please move money out and try again"
+}
 ```
 
 404 Not Found
