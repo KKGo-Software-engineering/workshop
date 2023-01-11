@@ -205,6 +205,39 @@ This story make sure that the user can't accidentally transfer money more than w
 
 ความต้องการนี้เพื่อให้แอปตรวจสามารถตรวจสอบว่าผู้ใช้มีเงินเพียงพอใน cloud pocket ต้นทางก่อนที่จะทำการโอน เพื่อป้องกันการถอนเงินเกินจำนวนโดยอัตโนมัติ และสามารถแจ้งเตือนผู้ใช้ถ้าเกิดข้อผิดพลาดในการโอนเงินได้
 
+
+## Aunthentication and Authorization feature
+### Story:
+* As a user,
+* I want to be able to securely authenticate and authorize my actions when using the Cloud Pocket system,
+* so that I am able to access and make changes only to the resources that I am authorized to.
+
+Acceptance Criteria:
+
+- All API calls to the Cloud Pocket system must be authenticated and authorized before they are processed.
+- There should be a registration/create new user API that allows users to create new accounts with the system.
+- The registration API should require the user to provide a unique username and password, and the password should be securely hashed and stored.
+- The authentication and authorization process should use a secure method such as OAuth 2.0 or JWT.
+- The system should have a mechanism for revoking authentication and authorization for a user if necessary.
+- The system should be able to check for duplicate/existing username on registration process
+- The user should be able to change their password if they forget it by using the password recovery feature, it should also require a email verification.
+
+This story ensure that, only authorized users are able to access and make changes to the resources within the Cloud Pocket system, and that the system has appropriate measures in place to ensure the security of user's credentials, account creation, and access.
+
+* ในฐานะผู้ใช้,
+* ฉันต้องการที่จะสามารถเข้ารหัสและอนุมัติการเปลี่ยนแปลงของฉันเมื่อใช้ระบบกระเป๋าเคลื่อนที่ได้อย่างปลอดภัย
+* เพื่อให้ฉันสามารถเข้าถึงและเปลี่ยนแปลงได้เฉพาะที่ฉันมีสิทธิ์อนุญาต
+
+เกณฑ์การยอมรับ:
+
+- การเรียก API เข้าถึงระบบกระเป๋าเคลื่อนที่ต้องได้รับการตรวจสอบและอนุมัติก่อนที่จะประมวลผล
+- มี API สำหรับลงทะเบียน/สร้างผู้ใช้ใหม่ โดยที่ผู้ใช้สามารถสร้างบัญชีใหม่กับระบบได้
+- การลงทะเบียน API จะต้องการให้ผู้ใช้ให้ชื่อผู้ใช้และรหัสผ่านที่ไม่ซ้ำกัน และรหัสผ่านจะถูกเข้ารหัสและเก็บไว้อย่างปลอดภัย
+- ระบบควรมีการตรวจสอบอีเมลล์ของผู้ใช้ในขั้นตอนการกู้คืนรหัสผ่าน
+
+ความต้องการนี้ทำให้แน่ใจว่าเฉพาะผู้ใช้ที่ได้รับอนุญาตเข้าถึงและเปลี่ยนแปลงทรัพยากรในระบบกระเป๋าเคลื่อนที่ได้ และว่าระบบมีเกณฑ์ป้องกันความปลอดภัยของข้อมูลประจำตัวของผู้ใช้และการสร้างบัญชีและเข้าถึงได้
+
+
 ## Technical guide
 - GET /cloud-pockets: Retrieve a list of all cloud pockets belonging to the authenticated user.
 - POST /cloud-pockets: Create a new cloud pocket. The request body should contain the name, currency and initial balance of the cloud pocket.
