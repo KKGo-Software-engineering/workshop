@@ -202,235 +202,261 @@ This story make sure that the user can't accidentally transfer money more than w
 - GET /cloud-pockets/:id/monthly-balance: Retrieve the aggregate monthly balance of a specific cloud pocket.
 - GET /cloud-pockets/:id/csv: export transaction history of a specific cloud pocket as .csv file
 
-- GET /cloud-pockets: 
+- GET /cloud-pockets
+
 Response Body
-[
-  {
-    "id": "12345",
-    "name": "Travel Fund",
-    "category": "Vacation",
-    "currency": "USD",
-    "balance": 100
-  },
-  {
-    "id": "67890",
-    "name": "Savings",
-    "category": "Emergency Fund",
-    "currency": "USD",
-    "balance": 200
-  }
-]
 
-- POST /cloud-pockets:
+	[
+		{
+			"id": "12345",
+			"name": "Travel Fund",
+			"category": "Vacation",
+			"currency": "USD",
+			"balance": 100
+		},
+		{
+			"id": "67890",
+			"name": "Savings",
+			"category": "Emergency Fund",
+			"currency": "USD",
+			"balance": 200
+		}
+	]
+
+- POST /cloud-pockets
+
 Request Body
-{
-    "name": "Travel Fund",
-    "currency": "USD",
-    "initial_balance": 100.00
-}
-Reponse Body
-{
-    "id": "246810",
-    "name": "Travel Fund",
-    "category": "Vacation",
-    "currency": "USD",
-    "balance": 100.00
-}
 
-- GET /cloud-pockets/:id: 
-Reponse Body
-{
-    "id": "12345",
-    "name": "Travel Fund",
-    "category": "Vacation",
-    "currency": "USD",
-    "balance": 100.00
-}
+	{
+			"name": "Travel Fund",
+			"currency": "USD",
+			"initial_balance": 100.00
+	}
 
-- PUT /cloud-pockets/:id:
+Reponse Body
+
+	{
+			"id": "246810",
+			"name": "Travel Fund",
+			"category": "Vacation",
+			"currency": "USD",
+			"balance": 100.00
+	}
+
+- GET /cloud-pockets/:id 
+Reponse Body
+
+	{
+			"id": "12345",
+			"name": "Travel Fund",
+			"category": "Vacation",
+			"currency": "USD",
+			"balance": 100.00
+	}
+
+- PUT /cloud-pockets/:id
+
 Request Body
-{
-    "name": "Holiday Fund",
-    "currency": "USD",
-    "initial_balance": 150.00
-}
+
+	{
+			"name": "Holiday Fund",
+			"currency": "USD",
+			"initial_balance": 150.00
+	}
+
 Reponse Body
-{
-    "id": "12345",
-    "name": "Holiday Fund",
-    "category": "Vacation",
-    "currency": "USD",
-    "balance": 150.00
-}
+
+	{
+			"id": "12345",
+			"name": "Holiday Fund",
+			"category": "Vacation",
+			"currency": "USD",
+			"balance": 150.00
+	}
 
 - DELETE /cloud-pockets/:id:
-{
-    "message": "Cloud pocket deleted successfully"
-}
+
+	{
+			"message": "Cloud pocket deleted successfully"
+	}
 
 404 Not Found
-{
-    "message": "Cloud pocket not found"
-}
+
+	{
+			"message": "Cloud pocket not found"
+	}
 
 
 - GET /cloud-pockets/:id/transactions: This endpoint does not require a request body.
+
 Reponse Body
-{
-    "id": "12345",
-    "transactions": [
-        {
-            "date": "2022-01-01",
-            "description": "Hotel booking",
-            "amount": 50.00,
-            "type": "debit"
-        },
-        {
-            "date": "2022-01-02",
-            "description": "Airfare",
-            "amount": 200.00,
-            "type": "debit"
-        }
-    ]
-}
+
+	{
+			"id": "12345",
+			"transactions": [
+					{
+							"date": "2022-01-01",
+							"description": "Hotel booking",
+							"amount": 50.00,
+							"type": "debit"
+					},
+					{
+							"date": "2022-01-02",
+							"description": "Airfare",
+							"amount": 200.00,
+							"type": "debit"
+					}
+			]
+	}
 
 - POST /cloud-pockets/transfer:
+
 Request body:
 
-{
-    "source_cloud_pocket_id": "12345",
-    "destination_cloud_pocket_id": "67890",
-    "amount": 50.00,
-    "description":"Transfer from Travel fund to savings"
-}
+	{
+			"source_cloud_pocket_id": "12345",
+			"destination_cloud_pocket_id": "67890",
+			"amount": 50.00,
+			"description":"Transfer from Travel fund to savings"
+	}
+
 Response body :
 
-{
-    "transaction_id": "123",
-    "source_cloud_pocket": {
-        "id": "12345",
-        "name": "Travel Fund",
-        "category": "Vacation",
-        "balance": 50.00
-    },
-    "destination_cloud_pocket": {
-        "id": "67890",
-        "name": "Savings",
-        "category": "Emergency Fund",
-        "balance": 250.00
-    },
-    "status": "Success"
-}
+	{
+			"transaction_id": "123",
+			"source_cloud_pocket": {
+					"id": "12345",
+					"name": "Travel Fund",
+					"category": "Vacation",
+					"balance": 50.00
+			},
+			"destination_cloud_pocket": {
+					"id": "67890",
+					"name": "Savings",
+					"category": "Emergency Fund",
+					"balance": 250.00
+			},
+			"status": "Success"
+	}
+
 or
 
-{
-    "error_message":"Not enough balance in the source cloud pocket",
-    "status":"Failed"
-}
+	{
+			"error_message":"Not enough balance in the source cloud pocket",
+			"status":"Failed"
+	}
+
 - GET /cloud-pockets/:id/transactions :
+
 Request body: None
+
 Response body:
 
-{
-    "transactions": [
-        {
-            "id": "123",
-            "source_cloud_pocket_id":"12345",
-            "destination_cloud_pocket_id":"67890",
-            "amount": 50.00,
-            "description":"Transfer from Travel fund to savings",
-            "date":"2022-01-01",
-            "status":"Success"
-        },
-        {
-            "id": "124",
-            "source_cloud_pocket_id":"67890",
-            "destination_cloud_pocket_id":"12345",
-            "amount": 25.00,
-            "description":"Transfer from Savings to Travel fund",
-            "date":"2022-01-02",
-            "status":"Failed"
-        }
-    ]
-}'
+	{
+			"transactions": [
+					{
+							"id": "123",
+							"source_cloud_pocket_id":"12345",
+							"destination_cloud_pocket_id":"67890",
+							"amount": 50.00,
+							"description":"Transfer from Travel fund to savings",
+							"date":"2022-01-01",
+							"status":"Success"
+					},
+					{
+							"id": "124",
+							"source_cloud_pocket_id":"67890",
+							"destination_cloud_pocket_id":"12345",
+							"amount": 25.00,
+							"description":"Transfer from Savings to Travel fund",
+							"date":"2022-01-02",
+							"status":"Failed"
+					}
+			]
+	}
 
 - GET /cloud-pockets/:id/balance: 
+
 Reponse Body
-{
-    "id": "12345",
-    "balance": 100.00,
-    "currency": "USD"
-}
+
+	{
+			"id": "12345",
+			"balance": 100.00,
+			"currency": "USD"
+	}
 
 -GET /cloud-pockets/:id/monthly-balance
+
 Reponse Body
-{
-    "id": "12345",
-    "monthly_balance": [
-        {
-            "month": "January",
-            "year": "2022",
-            "balance": 250.00
-        },
-        {
-            "month": "February",
-            "year": "2022",
-            "balance": 200.00
-        }
-    ]
-}
+
+	{
+			"id": "12345",
+			"monthly_balance": [
+					{
+							"month": "January",
+							"year": "2022",
+							"balance": 250.00
+					},
+					{
+							"month": "February",
+							"year": "2022",
+							"balance": 200.00
+					}
+			]
+	}
 
 - GET /cloud-pockets/:id/csv: This endpoint does not require a request body.
 
 - POST /cloud-pockets/transfer:
 Request body:
 
-{
-    "source_cloud_pocket_id": "12345",
-    "destination_cloud_pocket_id": "67890",
-    "amount": 50.00,
-    "description":"Transfer from Travel fund to savings"
-}
+	{
+			"source_cloud_pocket_id": "12345",
+			"destination_cloud_pocket_id": "67890",
+			"amount": 50.00,
+			"description":"Transfer from Travel fund to savings"
+	}
+
 Response body:
 
-{
-    "transaction_id": "123",
-    "source_cloud_pocket": {
-        "id": "12345",
-        "name": "Travel Fund",
-        "category": "Vacation",
-        "balance": 50.00
-    },
-    "destination_cloud_pocket": {
-        "id": "67890",
-        "name": "Savings",
-        "category": "Emergency Fund",
-        "balance": 250.00
-    }
-}
+	{
+			"transaction_id": "123",
+			"source_cloud_pocket": {
+					"id": "12345",
+					"name": "Travel Fund",
+					"category": "Vacation",
+					"balance": 50.00
+			},
+			"destination_cloud_pocket": {
+					"id": "67890",
+					"name": "Savings",
+					"category": "Emergency Fund",
+					"balance": 250.00
+			}
+	}
 - GET /cloud-pockets/:id/transactions:
 Request body: None
 Response body:
 
-{
-    "transactions": [
-        {
-            "id": "123",
-            "source_cloud_pocket_id":"12345",
-            "destination_cloud_pocket_id":"67890",
-            "amount": 50.00,
-            "description":"Transfer from Travel fund to savings",
-            "date":"2022-01-01"
-        },
-        {
-            "id": "124",
-            "source_cloud_pocket_id":"67890",
-            "destination_cloud_pocket_id":"12345",
-            "amount": 25.00,
-            "description":"Transfer from Savings to Travel fund",
-            "date":"2022-01-02"
-        }
-    ]
-}
+	{
+			"transactions": [
+					{
+							"id": "123",
+							"source_cloud_pocket_id":"12345",
+							"destination_cloud_pocket_id":"67890",
+							"amount": 50.00,
+							"description":"Transfer from Travel fund to savings",
+							"date":"2022-01-01"
+					},
+					{
+							"id": "124",
+							"source_cloud_pocket_id":"67890",
+							"destination_cloud_pocket_id":"12345",
+							"amount": 25.00,
+							"description":"Transfer from Savings to Travel fund",
+							"date":"2022-01-02"
+					}
+			]
+	}
 
 ### hotfix
