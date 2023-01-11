@@ -12,183 +12,198 @@ Money Request: เรียกเก็บเงินคนที่ยืม�
 Expense Summary: เข้าใจการใช้จ่ายยิ่งกว่าที่เคย สรุปและติดตามการใช้จ่ายของคุณ ทำให้ทุกเดือนของคุณวางแผนการใช้จ่ายได้ดียิ่งขึ้น
 
 ## 1. Blacklogs
-Story01: "cloud pocket" feature 
-As a user,
-I want to be able to create multiple "cloud pockets" within my mobile banking app,
-so that I can budget and manage my money more effectively.
+
+
+
+## "default cloud pocket" feature
+### Story:
+* As a user,
+* I want my main account balance to be automatically added as a default "cloud pocket" called "Cashbox",
+* so that I can easily access and manage my funds without having to manually create a new "cloud pocket" every time.
 
 Acceptance Criteria:
 
-I can create a new "cloud pocket" from the app's home screen
-I can assign a name and budget to each "cloud pocket"
-I can add money to a "cloud pocket" from my main account balance
-I can view the current balance and transaction history for each "cloud pocket"
-I can transfer money between my "cloud pockets" and main account balance
+- My main account balance is automatically added as a "cloud pocket" called "Cashbox" when I create an account or login.
+- The balance of the "Cashbox" is always in sync with my main account balance
+- I can access the "Cashbox" from the app's home screen
+- I can see the balance and transaction history of "Cashbox" at all times
+- I can still create additional "cloud pockets" if I want to budget or manage specific funds separately
+
+* ในฐานะผู้ใช้,
+* ฉันต้องการให้ยอดเงินหลักของฉันเป็น "cloud pocket" เริ่มต้นที่เรียกว่า "Cashbox",
+* เพื่อให้ฉันสามารถเข้าถึงและจัดการเงินของฉันได้อย่างง่ายดายโดยไม่ต้องสร้าง "cloud pocket" ใหม่ในแต่ละครั้ง
+
+เกณฑ์การยอมรับ:
+
+- เมื่อฉันสร้างบัญชีหรือเข้าสู่ระบบยอดเงินหลักของฉันจะถูกเพิ่มเป็น "cloud pocket" เรียกว่า "Cashbox"
+- ยอดเงิน "Cashbox" จะตรงกับยอดเงินหลักเสมอ
+- ฉันสามารถเข้าถึง "Cashbox" จากหน้าแรกของแอป
+- ฉันสามารถดูยอดเงินและประวัติการทำธุรกรรมของ "Cashbox" ได้ตลอด
+
+## "cloud pocket" feature 
+### Story:
+* As a user,
+* I want to be able to create multiple "cloud pockets" within my mobile banking app,
+* so that I can budget and manage my money more effectively.
+
+Acceptance Criteria:
+
+- I can create a new "cloud pocket" from the app's home screen
+- I can assign a name and budget to each "cloud pocket"
+- I can add money to a "cloud pocket" from my main account balance
+- I can view the current balance and transaction history for each "cloud pocket"
+- I can transfer money between my "cloud pockets" and main account balance
 				
-ในฐานะผู้ใช้,
-ฉันต้องการที่จะสามารถสร้าง "cloud pockets" หลายๆ อันในแอปธนาคารของฉันได้,
-เพื่อให้ฉันสามารถจัดการและจัดสรรเงินได้อย่างเหมาะสมยิ่งขึ้น
+* ในฐานะผู้ใช้,
+* ฉันต้องการที่จะสามารถสร้าง "cloud pockets" หลายๆ อันในแอปธนาคารของฉันได้,
+* เพื่อให้ฉันสามารถจัดการและจัดสรรเงินได้อย่างเหมาะสมยิ่งขึ้น
 
-เงื่อนไขการยอมรับ:
+เกณฑ์การยอมรับ:
 
-ฉันสามารถสร้าง "cloud pockets" ใหม่จากหน้าแรกของแอป
-ฉันสามารถกำหนดชื่อและงบประมาณให้กับแต่ละ "cloud pockets"
-ฉันสามารถเพิ่มเงินไปยัง "cloud pockets" จากยอดเงินหลักของฉัน
-ฉันสามารถดูยอดเงินปัจจุบันและประวัติการทำธุรกรรมของแต่ละ "cloud pockets"
-ฉันสามารถโอนเงินระหว่าง "cloud pockets" และยอดเงินหลัก
+- ฉันสามารถสร้าง "cloud pockets" ใหม่จากหน้าแรกของแอป
+- ฉันสามารถกำหนดชื่อและงบประมาณให้กับแต่ละ "cloud pockets"
+- ฉันสามารถเพิ่มเงินไปยัง "cloud pockets" จากยอดเงินหลักของฉัน
+- ฉันสามารถดูยอดเงินปัจจุบันและประวัติการทำธุรกรรมของแต่ละ "cloud pockets"
+- ฉันสามารถโอนเงินระหว่าง "cloud pockets" และยอดเงินหลัก
 
 
-
-Story02: "default cloud pocket" feature
-As a user,
-I want my main account balance to be automatically added as a default "cloud pocket" called "Cashbox",
-so that I can easily access and manage my funds without having to manually create a new "cloud pocket" every time.
-
-Acceptance Criteria:
-
-My main account balance is automatically added as a "cloud pocket" called "Cashbox" when I create an account or login.
-The balance of the "Cashbox" is always in sync with my main account balance
-I can access the "Cashbox" from the app's home screen
-I can see the balance and transaction history of "Cashbox" at all times
-I can still create additional "cloud pockets" if I want to budget or manage specific funds separately
-
-ในฐานะผู้ใช้,
-ฉันต้องการให้ยอดเงินหลักของฉันเป็น "cloud pocket" เริ่มต้นที่เรียกว่า "Cashbox",
-เพื่อให้ฉันสามารถเข้าถึงและจัดการเงินของฉันได้อย่างง่ายดายโดยไม่ต้องสร้าง "cloud pocket" ใหม่ในแต่ละครั้ง
-
-เงื่อนไขการยอมรับ:
-
-เมื่อฉันสร้างบัญชีหรือเข้าสู่ระบบยอดเงินหลักของฉันจะถูกเพิ่มเป็น "cloud pocket" เรียกว่า "Cashbox"
-ยอดเงิน "Cashbox" จะตรงกับยอดเงินหลักเสมอ
-ฉันสามารถเข้าถึง "Cashbox" จากหน้าแรกของแอป
-ฉันสามารถดูยอดเงินและประวัติการทำธุรกรรมของ "Cashbox" ได้ตลอด
-
-Story03: "syncing cloud pockets" feature
-As a user,
-I want my "cloud pockets" to always be in sync with my main account balance,
-so that I always know how much money I have available no matter which "cloud pocket" I am viewing or moving money from.
+## "syncing cloud pockets" feature
+### Story:
+* As a user,
+* I want my "cloud pockets" to always be in sync with my main account balance,
+* so that I always know how much money I have available no matter which "cloud pocket" I am viewing or moving money from.
 
 Acceptance Criteria:
 
-The total balance of all "cloud pockets" is always equal to the balance of my main account
-Whenever I move money between "cloud pockets", the main account balance is updated accordingly
-I can always see the main account balance next to the balance of each "cloud pocket" for easy comparison
-If the main account balance changes( ex: deposit, withdrawal from other channel) the "cloud pockets" will be updated to reflect the change as well.
+- The total balance of all "cloud pockets" is always equal to the balance of my main account
+- Whenever I move money between "cloud pockets", the main account balance is updated accordingly
+- I can always see the main account balance next to the balance of each "cloud pocket" for easy comparison
+- If the main account balance changes( ex: deposit, withdrawal from other channel) the "cloud pockets" will be updated to reflect the change as well.
 
-ในฐานะผู้ใช้,
-ฉันต้องการให้ "cloud pockets" ของฉันอยู่ในสถานะตรงกับยอดเงินหลักของฉันเสมอ,
-เพื่อให้ฉันสามารถทราบว่าฉันมีเงินเหลือทั้งหมดกี่บาทได้ตลอดเวลาแม้ว่าฉันจะดูหรือโอนเงินจาก "cloud pocket" ไหน
+* ในฐานะผู้ใช้,
+* ฉันต้องการให้ "cloud pockets" ของฉันอยู่ในสถานะตรงกับยอดเงินหลักของฉันเสมอ,
+* เพื่อให้ฉันสามารถทราบว่าฉันมีเงินเหลือทั้งหมดกี่บาทได้ตลอดเวลาแม้ว่าฉันจะดูหรือโอนเงินจาก "cloud pocket" ไหน
 
-เงื่อนไขการยอมรับ:
+เกณฑ์การยอมรับ:
 
-ยอดเงินของแต่ละ "cloud pockets" จะตรงกับยอดเงินหลักเสมอ
-เมื่อฉันโอนเงินระหว่าง "cloud pockets" ยอดเงินหลักจะถูกอัพเดทตามไปด้วย
-ฉันสามารถเห็นยอดเงินหลักได้ตลอดเวลาข้างหน้ายอดเงินของแต่ละ "cloud pocket" เพื่อเปรียบเทียบได้ง่าย
-เมื่อยอดเงินหลักมีการเปลี่ยนแปลง(เช่น เงินเข้าบัญชี, เงินถอนจากช่องทางอื่น) "cloud pockets" ก็จะถูกอัพเดทเป็นไปตาม
+- ยอดเงินของแต่ละ "cloud pockets" จะตรงกับยอดเงินหลักเสมอ
+- เมื่อฉันโอนเงินระหว่าง "cloud pockets" ยอดเงินหลักจะถูกอัพเดทตามไปด้วย
+- ฉันสามารถเห็นยอดเงินหลักได้ตลอดเวลาข้างหน้ายอดเงินของแต่ละ "cloud pocket" เพื่อเปรียบเทียบได้ง่าย
+- เมื่อยอดเงินหลักมีการเปลี่ยนแปลง(เช่น เงินเข้าบัญชี, เงินถอนจากช่องทางอื่น) "cloud pockets" ก็จะถูกอัพเดทเป็นไปตาม
 
 
-story04: "viewing cloud pockets" feature
-As a user,
-I want to be able to view a list of all my "cloud pockets" in one place,
-so that I can easily manage and track my funds.
-
-Acceptance Criteria:
-
-I can access a list of all my "cloud pockets" from the app's home screen or main menu
-The list includes the name, current balance, and transaction history of each "cloud pocket"
-I can tap on a "cloud pocket" to view more details, such as recent transactions
-I can easily create new "cloud pockets" from this screen as well
-I can sort, filter or search my cloud pockets by name and balance
-
-ในฐานะผู้ใช้,
-ฉันต้องการสามารถดูรายการของ "cloud pockets" ทั้งหมดในที่เดียว,
-เพื่อให้ฉันสามารถจัดการและติดตามเงินของฉันได้อย่างง่ายดาย
-
-เงื่อนไขการยอมรับ:
-
-ฉันสามารถเข้าถึงรายการของ "cloud pockets" ทั้งหมดจากหน้าแรกหรือเมนูหลักของแอป
-รายการประกอบด้วยชื่อ, ยอดเงินปัจจุบัน และประวัติการทำธุรกรรมของแต่ละ "cloud pocket"
-ฉันสามารถคลิกที่ "cloud pocket" เพื่อดูรายละเอียดเพิ่มเติมเช่นประวัติการทำรายการล่าสุด
-ฉันสามารถสร้าง "cloud pockets" ใหม่ได้จากหน้านี้เช่นกัน
-ฉันสามารถเรียงลำดับ, กรอง, หรือค้นหา "cloud pockets" ของฉันโดยใช้ชื่อ และยอดเงินได้
-
-story05: "cloud pockets transaction history" feature 
-As a user,
-I want to be able to view the transaction history of each of my "cloud pockets",
-so that I can keep track of my spending and budgeting.
+## "viewing cloud pockets" feature
+### story:
+* As a user,
+* I want to be able to view a list of all my "cloud pockets" in one place,
+* so that I can easily manage and track my funds.
 
 Acceptance Criteria:
 
-I can view the transaction history of each "cloud pocket" by selecting it from the list of "cloud pockets"
-The transaction history includes the date, amount, and description of each transaction
-I can filter the transaction history by date range, transaction type or amount
-I can see the balance of each transaction and the remaining balance after it
-I can see the aggregate monthly balance and transaction history of the cloud pocket
-I can export the transaction history of each cloud pocket as .csv file
+- I can access a list of all my "cloud pockets" from the app's home screen or main menu
+- The list includes the name, current balance, and transaction history of each "cloud pocket"
+- I can tap on a "cloud pocket" to view more details, such as recent transactions
+- I can easily create new "cloud pockets" from this screen as well
+- I can sort, filter or search my cloud pockets by name and balance
 
-ในฐานะผู้ใช้,
-ฉันต้องการสามารถดูประวัติการทำธุรกรรมของแต่ละ "cloud pockets" ของฉันได้,
-เพื่อให้ฉันสามารถติดตามการใช้จ่ายและการจัดงบประมาณได้
+* ในฐานะผู้ใช้,
+* ฉันต้องการสามารถดูรายการของ "cloud pockets" ทั้งหมดในที่เดียว,
+* เพื่อให้ฉันสามารถจัดการและติดตามเงินของฉันได้อย่างง่ายดาย
 
-เงื่อนไขการยอมรับ:
+เกณฑ์การยอมรับ:
 
-ฉันสามารถดูประวัติการทำธุรกรรมของแต่ละ "cloud pocket" โดยเลือกจากรายการ "cloud pockets"
-ประวัติการทำธุรกรรมประกอบด้วยวันที่, จำนวนเงินและคำอธิบายของแต่ละรายการ
-ฉันสามารถกรองประวัติการทำธุรกรรมโดยใช้ช่วงเวลา, ประเภทธุรกรรม หรือ จำนวนเงิน
-ฉันสามารถเห็นยอดเงินคงเหลือของแต่ละรายการและยอดเงินคงเหลือหลังจากรายการ
-ฉันสามารถเห็นยอดเงินเดือนละและประวัติธุรกรรมของ cloud pocket
-ฉันสามารถ export ประวัติธุรกรรมของแต่ละ cloud pocket เป็นไฟล์ .csv
+- ฉันสามารถเข้าถึงรายการของ "cloud pockets" ทั้งหมดจากหน้าแรกหรือเมนูหลักของแอป
+- รายการประกอบด้วยชื่อ, ยอดเงินปัจจุบัน และประวัติการทำธุรกรรมของแต่ละ "cloud pocket"
+- ฉันสามารถคลิกที่ "cloud pocket" เพื่อดูรายละเอียดเพิ่มเติมเช่นประวัติการทำรายการล่าสุด
+- ฉันสามารถสร้าง "cloud pockets" ใหม่ได้จากหน้านี้เช่นกัน
+- ฉันสามารถเรียงลำดับ, กรอง, หรือค้นหา "cloud pockets" ของฉันโดยใช้ชื่อ และยอดเงินได้
 
-Story 5: "transfer money between cloud pockets" feature
-As a user, I want to be able to transfer money between my cloud pockets within the app so that I can easily manage my finances and budget my money in different categories.
-
-Acceptance Criteria:
-
-I can select the source cloud pocket and the destination cloud pocket from a list of my existing cloud pockets.
-I can enter the amount of money I want to transfer.
-The app will show the remaining balance of each cloud pocket after the transfer.
-I can see a confirmation screen with the details of the transfer before it is completed.
-I can view the transaction history of each cloud pocket after the transfer to confirm the transaction has been made
-I can filter the transaction history by date, category, and amount
-
-ในฐานะผู้ใช้,
-ฉันต้องการสามารถโอนเงินระหว่าง cloud pockets ในแอปของฉันได้เพื่อให้ฉันสามารถจัดการเงินและงบประมาณเงินของฉันในหมวดหมู่ต่างๆได้ง่ายขึ้น
-
-เกณฑ์การยอมรับ
-
-ฉันสามารถเลือก cloud pocket ต้นทางและปลายทางจากรายการ cloud pockets ที่มีอยู่ในขณะนั้น
-ฉันสามารถป้อนจำนวนเงินที่ฉันต้องการโอน
-แอปจะแสดงยอดเงินคงเหลือของแต่ละ cloud pocket หลังจากโอน
-ฉันสามารถเห็นหน้าจอยืนยันพร้อมรายละเอียดการโอนก่อนที่จะทำการโอน
-ฉันสามารถดูประวัติการโอนของแต่ละ cloud pocket หลังจากโอนเพื่อยืนยันว่าการโอนเสร็จสมบูรณ์
-ฉันสามารถกรองประวัติการโอนโดยใช้วันที่, หมวดหมู่ และจำนวนเงิน
-
-Story 6: "transfer money between cloud pockets" feature - error handling
-As a user, I want to make sure that I can only transfer money between cloud pockets if I have enough money in the source cloud pocket, so that I don't accidentally overdraw my account.
+## "cloud pockets transaction history" feature 
+### story:
+* As a user,
+* I want to be able to view the transaction history of each of my "cloud pockets",
+* so that I can keep track of my spending and budgeting.
 
 Acceptance Criteria:
 
-The app will check the balance of the source cloud pocket before allowing a transfer to take place.
-If the source cloud pocket does not have enough money for the transfer, the transfer will not be allowed and an error message will be displayed.
-If the source cloud pocket does have enough money for the transfer, the transfer will be allowed and the balance of both the source and destination cloud pockets will be updated.
-I can see a confirmation screen with the details of the transfer before it is completed.
-I can view the transaction history of each cloud pocket after the transfer to confirm the transaction has been made
-I can filter the transaction history by date, category, and amount
+- I can view the transaction history of each "cloud pocket" by selecting it from the list of "cloud pockets"
+- The transaction history includes the date, amount, and description of each transaction
+- I can filter the transaction history by date range, transaction type or amount
+- I can see the balance of each transaction and the remaining balance after it
+- I can see the aggregate monthly balance and transaction history of the cloud pocket
+- I can export the transaction history of each cloud pocket as .csv file
+
+* ในฐานะผู้ใช้,
+* ฉันต้องการสามารถดูประวัติการทำธุรกรรมของแต่ละ "cloud pockets" ของฉันได้,
+* เพื่อให้ฉันสามารถติดตามการใช้จ่ายและการจัดงบประมาณได้
+
+เกณฑ์การยอมรับ:
+
+- ฉันสามารถดูประวัติการทำธุรกรรมของแต่ละ "cloud pocket" โดยเลือกจากรายการ "cloud pockets"
+- ประวัติการทำธุรกรรมประกอบด้วยวันที่, จำนวนเงินและคำอธิบายของแต่ละรายการ
+- ฉันสามารถกรองประวัติการทำธุรกรรมโดยใช้ช่วงเวลา, ประเภทธุรกรรม หรือ จำนวนเงิน
+- ฉันสามารถเห็นยอดเงินคงเหลือของแต่ละรายการและยอดเงินคงเหลือหลังจากรายการ
+- ฉันสามารถเห็นยอดเงินเดือนละและประวัติธุรกรรมของ cloud pocket
+- ฉันสามารถ export ประวัติธุรกรรมของแต่ละ cloud pocket เป็นไฟล์ .csv
+
+## Story:
+* As a user, 
+* I want to be able to transfer money between my cloud pockets within the app 
+* so that I can easily manage my finances and budget my money in different categories.
+
+Acceptance Criteria:
+
+- I can select the source cloud pocket and the destination cloud pocket from a list of my existing cloud pockets.
+- I can enter the amount of money I want to transfer.
+- The app will show the remaining balance of each cloud pocket after the transfer.
+- I can see a confirmation screen with the details of the transfer before it is completed.
+- I can view the transaction history of each cloud pocket after the transfer to confirm the transaction has been made
+- I can filter the transaction history by date, category, and amount
+
+* ในฐานะผู้ใช้,
+* ฉันต้องการสามารถโอนเงินระหว่าง cloud pockets ในแอปของฉันได้
+* เพื่อให้ฉันสามารถจัดการเงินและงบประมาณเงินของฉันในหมวดหมู่ต่างๆได้ง่ายขึ้น
+
+เกณฑ์การยอมรับ:
+
+- ฉันสามารถเลือก cloud pocket ต้นทางและปลายทางจากรายการ cloud pockets ที่มีอยู่ในขณะนั้น
+- ฉันสามารถป้อนจำนวนเงินที่ฉันต้องการโอน
+- แอปจะแสดงยอดเงินคงเหลือของแต่ละ cloud pocket หลังจากโอน
+- ฉันสามารถเห็นหน้าจอยืนยันพร้อมรายละเอียดการโอนก่อนที่จะทำการโอน
+- ฉันสามารถดูประวัติการโอนของแต่ละ cloud pocket หลังจากโอนเพื่อยืนยันว่าการโอนเสร็จสมบูรณ์
+- ฉันสามารถกรองประวัติการโอนโดยใช้วันที่, หมวดหมู่ และจำนวนเงิน
+
+## "transfer money between cloud pockets" feature - error handling
+### Story:
+* As a user, 
+* I want to make sure that I can only transfer money between cloud pockets if I have enough money in the source cloud pocket,
+* so that I don't accidentally overdraw my account.
+
+Acceptance Criteria:
+
+- The app will check the balance of the source cloud pocket before allowing a transfer to take place.
+- If the source cloud pocket does not have enough money for the transfer, the transfer will not be allowed and an error message will be displayed.
+- If the source cloud pocket does have enough money for the transfer, the transfer will be allowed and the balance of both the source and destination cloud pockets will be updated.
+- I can see a confirmation screen with the details of the transfer before it is completed.
+- I can view the transaction history of each cloud pocket after the transfer to confirm the transaction has been made
+- I can filter the transaction history by date, category, and amount
 
 This story make sure that the user can't accidentally transfer money more than what they have in their account,and the error message will give clear indication to user what went wrong and how they can fix it.
 
-ฉันต้องการให้แน่ใจว่าฉันสามารถโอนเงินระหว่าง cloud pockets ได้เมื่อมีเงินใน cloud pocket ต้นทางเพียงพอ เพื่อไม่ให้เกิดการถอนเงินเกินจำนวน
+* ในฐานะผู้ใช้,
+* ฉันต้องการให้แน่ใจว่าฉันสามารถโอนเงินระหว่าง cloud pockets ได้เมื่อมีเงินใน cloud pocket ต้นทางเพียงพอ 
+* เพื่อไม่ให้เกิดการถอนเงินเกินจำนวน
 
 เกณฑ์การยอมรับ
 
-แอปจะตรวจสอบยอดเงินของ cloud pocket ต้นทางก่อนที่จะทำการโอน
-ถ้า cloud pocket ต้นทางไม่มีเงินเพียงพอสำหรับการโอน การโอนจะไม่ได้รับอนุญาตและจะแสดงข้อความแจ้งเตือน
-ถ้า cloud pocket ต้นทางมีเงินเพียงพอสำหรับการโอน การโอนจะได้รับอนุญาตและยอดเงินของทั้ง cloud pocket ต้นทางและปลายทางจะถูกปรับปรุง
-ฉันสามารถเห็นหน้าจอยืนยันพร้อมรายละเอียดการโอนก่อนที่จะทำการโอน
-ฉันสามารถดูประวัติการโอนของแต่ละ cloud pocket หลังจากโอนเพื่อยืนยันว่าการโอนเสร็จสมบูรณ์
-ฉันสามารถกรองประวัติการโอนโดยใช้วันที่, หมวดหมู่ และจำนวนเงิน
+- แอปจะตรวจสอบยอดเงินของ cloud pocket ต้นทางก่อนที่จะทำการโอน
+- ถ้า cloud pocket ต้นทางไม่มีเงินเพียงพอสำหรับการโอน การโอนจะไม่ได้รับอนุญาตและจะแสดงข้อความแจ้งเตือน
+- ถ้า cloud pocket ต้นทางมีเงินเพียงพอสำหรับการโอน การโอนจะได้รับอนุญาตและยอดเงินของทั้ง cloud pocket ต้นทางและปลายทางจะถูกปรับปรุง
+- ฉันสามารถเห็นหน้าจอยืนยันพร้อมรายละเอียดการโอนก่อนที่จะทำการโอน
+- ฉันสามารถดูประวัติการโอนของแต่ละ cloud pocket หลังจากโอนเพื่อยืนยันว่าการโอนเสร็จสมบูรณ์
+- ฉันสามารถกรองประวัติการโอนโดยใช้วันที่, หมวดหมู่ และจำนวนเงิน
 
-เรื่องราวนี้ให้ความรู้ในแอป เพื่อให้แอปตรวจสามารถตรวจสอบว่าผู้ใช้มีเงินเพียงพอใน cloud pocket ต้นทางก่อนที่จะทำการโอน เพื่อป้องกันการถอนเงินเกินจำนวนโดยอัตโนมัติ และสามารถแจ้งเตือนผู้ใช้ถ้าเกิดข้อผิดพลาดในการโอนเงินได้
+ความต้องการนี้เพื่อให้แอปตรวจสามารถตรวจสอบว่าผู้ใช้มีเงินเพียงพอใน cloud pocket ต้นทางก่อนที่จะทำการโอน เพื่อป้องกันการถอนเงินเกินจำนวนโดยอัตโนมัติ และสามารถแจ้งเตือนผู้ใช้ถ้าเกิดข้อผิดพลาดในการโอนเงินได้
 
 ## Technical guide
 - GET /cloud-pockets: Retrieve a list of all cloud pockets belonging to the authenticated user.
@@ -206,7 +221,8 @@ This story make sure that the user can't accidentally transfer money more than w
 
 Response Body
 
-	[
+```json
+[
 		{
 			"id": "12345",
 			"name": "Travel Fund",
@@ -222,19 +238,23 @@ Response Body
 			"balance": 200
 		}
 	]
+```
 
 - POST /cloud-pockets
 
 Request Body
 
+```json
 	{
 			"name": "Travel Fund",
 			"currency": "USD",
 			"initial_balance": 100.00
 	}
+```
 
 Reponse Body
 
+```json
 	{
 			"id": "246810",
 			"name": "Travel Fund",
@@ -242,10 +262,12 @@ Reponse Body
 			"currency": "USD",
 			"balance": 100.00
 	}
+```
 
 - GET /cloud-pockets/:id 
 Reponse Body
 
+```json
 	{
 			"id": "12345",
 			"name": "Travel Fund",
@@ -253,19 +275,23 @@ Reponse Body
 			"currency": "USD",
 			"balance": 100.00
 	}
+```
 
 - PUT /cloud-pockets/:id
 
 Request Body
 
+```json
 	{
 			"name": "Holiday Fund",
 			"currency": "USD",
 			"initial_balance": 150.00
 	}
+```
 
 Reponse Body
 
+```json
 	{
 			"id": "12345",
 			"name": "Holiday Fund",
@@ -273,24 +299,30 @@ Reponse Body
 			"currency": "USD",
 			"balance": 150.00
 	}
+```
 
 - DELETE /cloud-pockets/:id:
 
+```json
 	{
 			"message": "Cloud pocket deleted successfully"
 	}
+```
 
 404 Not Found
 
+```json
 	{
 			"message": "Cloud pocket not found"
 	}
+```
 
 
 - GET /cloud-pockets/:id/transactions: This endpoint does not require a request body.
 
 Reponse Body
 
+```json
 	{
 			"id": "12345",
 			"transactions": [
@@ -308,20 +340,24 @@ Reponse Body
 					}
 			]
 	}
+```
 
 - POST /cloud-pockets/transfer:
 
 Request body:
 
+```json
 	{
 			"source_cloud_pocket_id": "12345",
 			"destination_cloud_pocket_id": "67890",
 			"amount": 50.00,
 			"description":"Transfer from Travel fund to savings"
 	}
+```
 
 Response body :
 
+```json
 	{
 			"transaction_id": "123",
 			"source_cloud_pocket": {
@@ -338,13 +374,16 @@ Response body :
 			},
 			"status": "Success"
 	}
+```
 
 or
 
+```json
 	{
 			"error_message":"Not enough balance in the source cloud pocket",
 			"status":"Failed"
 	}
+```
 
 - GET /cloud-pockets/:id/transactions :
 
@@ -352,6 +391,7 @@ Request body: None
 
 Response body:
 
+```json
 	{
 			"transactions": [
 					{
@@ -374,21 +414,25 @@ Response body:
 					}
 			]
 	}
+```
 
 - GET /cloud-pockets/:id/balance: 
 
 Reponse Body
 
+```json
 	{
 			"id": "12345",
 			"balance": 100.00,
 			"currency": "USD"
 	}
+```
 
 -GET /cloud-pockets/:id/monthly-balance
 
 Reponse Body
 
+```json
 	{
 			"id": "12345",
 			"monthly_balance": [
@@ -404,21 +448,25 @@ Reponse Body
 					}
 			]
 	}
+```
 
 - GET /cloud-pockets/:id/csv: This endpoint does not require a request body.
 
 - POST /cloud-pockets/transfer:
 Request body:
 
+```json
 	{
 			"source_cloud_pocket_id": "12345",
 			"destination_cloud_pocket_id": "67890",
 			"amount": 50.00,
 			"description":"Transfer from Travel fund to savings"
 	}
+```
 
 Response body:
 
+```json
 	{
 			"transaction_id": "123",
 			"source_cloud_pocket": {
@@ -434,10 +482,12 @@ Response body:
 					"balance": 250.00
 			}
 	}
+```
 - GET /cloud-pockets/:id/transactions:
 Request body: None
 Response body:
 
+```json
 	{
 			"transactions": [
 					{
@@ -458,5 +508,6 @@ Response body:
 					}
 			]
 	}
+```
 
 ### hotfix
