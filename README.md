@@ -2,6 +2,12 @@
 
 สวัสดีชาวโลก 👋 ยินดีต้อนรับสู่ Software Engineering with Go ในส่วนของ Workshop
 
+## สิ่งที่ต้องเตรียม
+- `brew install terraform`
+- `brew install kubectl`
+- `brew install awscli`
+- Install Container Management ([Rancher Desktop](https://rancherdesktop.io), Docker Desktop, Minikube, etc.)
+
 ### STEP0: Fork Repository
 
 1. Fork repository นี้ไปที่ Github ของตัวเอง
@@ -90,7 +96,7 @@ References:
 
 2.ติดตั้ง Kubernetes CLI ให้เรียบร้อย
 
-3.เนื่องจากเราใช้ AWS EKS เป็น Kubernetes Cluster ดังนั้นเราต้องเอา Kubernetes Context จาก AWS EKS โดยสั่ง
+3.เนื่องจากเราใช้ AWS EKS เป็น Kubernetes Cluster ดังนั้นเราต้องเอา Kubernetes Context จาก AWS EKS โดยสั่ง (*มั่นใจว่าเรา run command ที่ terminal เดียวกันกับเรา export AWS_ACCESS_KEY_ID และ AWS_SECRET_ACCESS_KEY*)
 
 ```console
 aws eks update-kubeconfig --region ap-southeast-1 --name "eks-group-<ID>"

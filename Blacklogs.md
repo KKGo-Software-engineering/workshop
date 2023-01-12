@@ -264,6 +264,10 @@ This story ensure that, only authorized users are able to access and make change
 
 ## [PENDING] trasfer and request money between users
 
+## Hints
+
+<details>
+  <summary>Technical hints: อย่าพึ่งเปิดให้คิดเองก่อน</summary>
 ## Technical guide
 - GET /cloud-pockets: Retrieve a list of all cloud pockets belonging to the authenticated user.
 - POST /cloud-pockets: Create a new cloud pocket. The request body should contain the name, currency and initial balance of the cloud pocket.
@@ -574,5 +578,4 @@ Response body:
 			]
 	}
 ```
-
-### hotfix
+</details>
