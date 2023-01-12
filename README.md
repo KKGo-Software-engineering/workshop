@@ -19,7 +19,7 @@ export AWS_SECRET_ACCESS_KEY=<SECRET>
 
 1.ติดตั้ง Terraform ให้เรียบร้อย
 
-1.ไปที่ `infra/terraform` จากนั้นรัน
+1. `cd` ไปที่ `infra/terraform` จากนั้นรัน
 
 2. สั่งเริ่มต้น Terraform
 
