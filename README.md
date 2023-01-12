@@ -69,8 +69,7 @@ References:
 - [Generate PAT](https://www.youtube.com/watch?v=jW7tbvHSChg)
 - [Create GHA Secret](https://www.youtube.com/watch?v=IuT0Ua7V4xA)
 
-1. แก้ไข CI/CD ใน .github ให้เป็นชื่อ repository ของทีม
-	1. ไปที่ folder `.github/workflows` ใน repository
+1. แก้ไข CI/CD ให้เป็นชื่อ repository ของทีม
 	1. find and replace `<your-github-account>` ให้เป็นชื่อ github account ของคุณคนที่ fork มา
 	1. git add -> git commit -> git push
 
