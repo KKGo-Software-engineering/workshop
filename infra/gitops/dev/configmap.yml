@@ -7,5 +7,5 @@ data:
   HOSTNAME: ''
   PORT: '1323'
   FLAG_IS_LIMIT_MAX_SPEND_ON_CREATE: 'true'
-  DB_CONNECTION: 'postgresql://postgres:password@0.tcp.ap.ngrok.io:5432/banking?sslmode=disable'
+  DB_CONNECTION: '<DB_CONNECTION_DEV>'
   

@@ -82,7 +82,11 @@ References:
 	(<your-github-account> MUST be lowercase)
 	1. git add -> git commit -> git push
 
-### STEP3.2: เพิ่มสมาชิกใน Github
+### STEP3.2: แก้ไข DATABASE_URL ให้เป็น url ของทีม
+	1. find and replace `<DB_CONNECTION_DEV>` ให้เป็น database url DEV connection ของทีม
+	1. find and replace `<DB_CONNECTION_PROD>` ให้เป็น database url PROD connection ของทีม
+
+### STEP3.3: เพิ่มสมาชิกใน Github
 
 1. ทำการเพิ่มสมาชิกใน Github ของทีมเพื่อให้สามารถเข้าถึง Repository ได้
 	1. ไปที่ Settings > Collaborators and teams > Manage access
@@ -132,17 +136,36 @@ kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 ```
 
-3.หารหัสผ่านของ `admin` ไว้ก่อน
+3.หารหัสผ่าน ArgoCD ของ `admin` ไว้ก่อน
 
 ```console
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ```
 
-4.Forword Port เพื่อใช้งาน [http://localhost:8080](http://localhost:8080)
+4.Forword Port เพื่อใช้งาน ArgoCD 
 
 ```console
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
+
+5. ไปที่ ArgoCD [http://localhost:8080](http://localhost:8080) แล้วใส่ Username `admin` และ Password ที่ได้จากข้อ 3. 
+
+6. setup gitops สำหรับ dev env
+	- กด `+ New App` แล้วใส่ข้อมูลดังนี้
+		- Application Name: `dev`
+		- Project Name: `default`
+		- SYNC POLICY: `Automatic`
+		- Repository URL: `https://github.com/<your-account>/workshop`
+		- Revision: `main`
+		- Path: `infra/gitops/dev`
+		- Cluster URL: `https://kubernetes.default.svc`
+		- กด `Create` มุมบนซ้าย
+
+note: ตรวจสอบให้แน่ใจว่าที่ https://github.com/<your-account>?tab=packages ที่ workshop เป็น public (ไม่มีคำว่า private แสดงอยู่)
+
+
+		- [x] `AUTO-CREATE NAMESPACE`
+
 
 ### 💣 ใช้ AWS เสร็จแล้วอย่าลืม Destroy ทิ้งน๊า
 
