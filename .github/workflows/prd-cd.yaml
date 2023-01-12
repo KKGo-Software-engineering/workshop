@@ -30,7 +30,7 @@ jobs:
           { if [ '${{ inputs.sign-off }}' = 'false' ]; then echo "📝 Need PO sign-off"; exit 1; fi }
         
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: config git
         run: |
