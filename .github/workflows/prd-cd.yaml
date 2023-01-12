@@ -42,7 +42,7 @@ jobs:
         
       - name: change image tag
         run: |
-          sed -i -E "s/ghcr.io\/kkgo-software-engineering\/workshop.*$/ghcr.io\/kkgo-software-engineering\/workshop:${{ inputs.deploy-tag }}/" infra/gitops/prd/deployment.yml
+          sed -i -E "s/ghcr.io\/<your-github-account>\/workshop.*$/ghcr.io\/<your-github-account>\/workshop:${{ inputs.deploy-tag }}/" infra/gitops/prd/deployment.yml
           git add infra/gitops/prd/deployment.yml
           git commit -m "[skip actions] 🤖 change prd docker image version to ${{ inputs.deploy-tag }}"
           git pull --rebase
