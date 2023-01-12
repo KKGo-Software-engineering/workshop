@@ -16,7 +16,7 @@ spec:
       imagePullSecrets:
         - name: secret-docker
       containers:
-      - name: pun-api
+      - name: gopher-api
         image: ghcr.io/<your-github-account>/workshop:21d9805d772d54f180298a54653e02109804be6a
         imagePullPolicy: Always
         ports:
