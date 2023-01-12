@@ -72,6 +72,7 @@ References:
 1. แก้ไข CI/CD ให้เป็นชื่อ repository ของทีม
 	1. find and replace `<your-github-account>` ให้เป็นชื่อ github account ของคุณคนที่ fork มา
 	1. git add -> git commit -> git push
+	1. ไปที่ Github Repository ของทีม แล้วไป tab Actions ดูว่า CI/CD ทำงานได้ไหม
 
 ### STEP3.2: เพิ่มสมาชิกใน Github
 
