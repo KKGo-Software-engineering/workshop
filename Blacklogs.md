@@ -220,13 +220,13 @@ Acceptance Criteria:
 - After the certain period of time, the transaction history of the deleted cloud pocket will be permanently deleted from the system as well
 
 * ในฐานะผู้ใช้,
-* ฉันต้องการที่จะสามารถลบ "กระเป๋าเงินในคลาวด์" ในแอพมือถือธนาคารของฉันได้
+* ฉันต้องการที่จะสามารถลบ cloud pocket ในแอพมือถือธนาคารของฉันได้
 * เพื่อให้ฉันสามารถจัดการเงินของฉันได้อย่างมีประสิทธิภาพและลบกระเป๋าที่ฉันไม่ได้ใช้อีกต่อไป
 
 เงื่อนไขที่ต้องปฏิบัติ:
 
-- ฉันสามารถลบ "กระเป๋าเงินในคลาวด์" จากหน้าแรกของแอพ
-- ฉันสามารถลบ "กระเป๋าเงินในคลาวด์" ได้เมื่อเงินในกระเป๋านั้นเป็นศูนย์ หากมีเงินในนั้น ระบบจะแจ้งเตือนว่าไม่สามารถลบได้
+- ฉันสามารถลบ cloud pocket จากหน้าแรกของแอพ
+- ฉันสามารถลบ cloud pocket ได้เมื่อเงินในกระเป๋านั้นเป็นศูนย์ หากมีเงินในนั้น ระบบจะแจ้งเตือนว่าไม่สามารถลบได้
 - หลังจากการลบ ฉันยังสามารถดูประวัติการโอนเงินของกระเป๋าเงินที่ถูกลบ ภายในช่วงเวลาที่กำหนด (เช่น 30 วัน)
 - ฉันสามารถเข้าถึงประวัติการโอนเงินของกระเป๋าเงินที่ถูกลบ โดยใช้ endpoint transaction
 - หลังจากช่วงเวลาที่กำหนด ประวัติการโอนเงินของกระเป๋าเงินที่ถูกลบจะถูกลบออกจากระบบแบบถาวร
@@ -286,14 +286,14 @@ Response Body
 			"id": "12345",
 			"name": "Travel Fund",
 			"category": "Vacation",
-			"currency": "USD",
+			"currency": "THB",
 			"balance": 100
 		},
 		{
 			"id": "67890",
 			"name": "Savings",
 			"category": "Emergency Fund",
-			"currency": "USD",
+			"currency": "THB",
 			"balance": 200
 		}
 	]
@@ -306,7 +306,7 @@ Request Body
 ```json
 	{
 			"name": "Travel Fund",
-			"currency": "USD",
+			"currency": "THB",
 			"initial_balance": 100.00
 	}
 ```
@@ -318,7 +318,7 @@ Reponse Body
 			"id": "246810",
 			"name": "Travel Fund",
 			"category": "Vacation",
-			"currency": "USD",
+			"currency": "THB",
 			"balance": 100.00
 	}
 ```
@@ -331,7 +331,7 @@ Reponse Body
 			"id": "12345",
 			"name": "Travel Fund",
 			"category": "Vacation",
-			"currency": "USD",
+			"currency": "THB",
 			"balance": 100.00
 	}
 ```
@@ -343,7 +343,7 @@ Request Body
 ```json
 	{
 			"name": "Holiday Fund",
-			"currency": "USD",
+			"currency": "THB",
 			"initial_balance": 150.00
 	}
 ```
@@ -355,7 +355,7 @@ Reponse Body
 			"id": "12345",
 			"name": "Holiday Fund",
 			"category": "Vacation",
-			"currency": "USD",
+			"currency": "THB",
 			"balance": 150.00
 	}
 ```
@@ -489,7 +489,7 @@ Reponse Body
 	{
 			"id": "12345",
 			"balance": 100.00,
-			"currency": "USD"
+			"currency": "THB"
 	}
 ```
 
