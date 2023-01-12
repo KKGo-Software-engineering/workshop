@@ -7,6 +7,8 @@ terraform {
   }
 }
 
+variable "group_name" {}
+
 provider "aws" {
   region = "ap-southeast-1"
 }

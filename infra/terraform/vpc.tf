@@ -3,5 +3,6 @@ resource "aws_vpc" "workshop" {
 
   tags = {
     Cluster = "training"
+    Name = var.group_name
   }
 }

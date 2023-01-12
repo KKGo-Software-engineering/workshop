@@ -46,6 +46,15 @@ make test-e2e
 
 เรา Deploy ด้วย ArgoCD ที่อยู่บน AWS EKS ผ่าน Terraform เพื่อให้ใช้งานได้ ต้องเตรียมของดังนี้
 
+### 🎃 Setup AWS Credential
+
+เพื่อให้ Access AWS ได้เราจะกำหนด Credential เข้าไปให้ Shell ของเราก่อน
+
+```bash
+export AWS_ACCESS_KEY_ID=<KEY>
+export AWS_SECRET_ACCESS_KEY=<SECRET> 
+```
+
 ### 🧾 Terraform
 
 1.ติดตั้ง Terraform ให้เรียบร้อย
@@ -53,7 +62,7 @@ make test-e2e
 2.ไปที่ `infra/terraform` จากนั้นรัน
 
 ```console
-AWS_ACCESS_KEY_ID=<KEY> AWS_SECRET_ACCESS_KEY=<SECRET> terraform apply
+terraform -chdir=infra/terraform apply -var group_name="group-<ID>"
 ```
 
 ### 🛟 Kubernetes
@@ -65,7 +74,7 @@ AWS_ACCESS_KEY_ID=<KEY> AWS_SECRET_ACCESS_KEY=<SECRET> terraform apply
 3.เนื่องจากเราใช้ AWS EKS เป็น Kubernetes Cluster ดังนั้นเราต้องเอา Kubernetes Context จาก AWS EKS โดยสั่ง
 
 ```console
-AWS_ACCESS_KEY_ID=<KEY> AWS_SECRET_ACCESS_KEY=<SECRET> aws eks update-kubeconfig --region ap-southeast-1 --name eks-devops-cluster
+aws eks update-kubeconfig --region ap-southeast-1 --name "eks-group-<ID>"
 ```
 
 4.ลองสั่ง kubectl
@@ -113,5 +122,5 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 ### 💣 ใช้ AWS เสร็จแล้วอย่าลืม Destroy ทิ้งน๊า
 
 ```console
-AWS_ACCESS_KEY_ID=<KEY> AWS_SECRET_ACCESS_KEY=<SECRET> terraform destroy
+terraform -chdir=infra/terraform destroy -var group_name="group-<ID>"
 ```
