@@ -149,7 +149,7 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 5. ไปที่ ArgoCD [http://localhost:8080](http://localhost:8080) แล้วใส่ Username `admin` และ Password ที่ได้จากข้อ 3. 
 
-6. setup gitops สำหรับ dev env
+6.1 setup gitops สำหรับ development env
 	- กด `+ New App` แล้วใส่ข้อมูลดังนี้
 		- Application Name: `dev`
 		- Project Name: `default`
@@ -162,6 +162,17 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 
 note: ตรวจสอบให้แน่ใจว่าที่ https://github.com/<your-account>?tab=packages ที่ workshop เป็น public (ไม่มีคำว่า private แสดงอยู่)
 
+6.2 setup gitops สำหรับ production env
+	- กด `+ New App` แล้วใส่ข้อมูลดังนี้
+		- Application Name: `prod`
+		- Project Name: `default`
+		- SYNC POLICY: `Automatic`
+		- Repository URL: `https://github.com/<your-account>/workshop`
+		- Revision: `main`
+		- Path: `infra/gitops/prd`
+		- Cluster URL: `https://kubernetes.default.svc`
+		- กด `Create` มุมบนซ้าย
+	
 ## จบแล้ว
 
 	- สามารถหา endpoint ของ api ได้จาก ArgoCD -> ในกล่อง svc api เราจะเห็น HOSTNAMES url ที่ deploy ไปใน aws
