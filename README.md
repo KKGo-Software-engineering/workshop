@@ -78,8 +78,7 @@ References:
 1. แก้ไข CI/CD ให้เป็นชื่อ repository ของทีม
 	1. ไปที่ Github Repository ของทีม แล้วไป tab Actions ดูว่า CI/CD ทำงานได้ไหม
 	1. กด `I understand my workflows, go ahead and enable them` ถ้าเป็นครั้งแรกที่ใช้งาน
-	1. เปิดโปรเจคของเราด้วย VSCode แล้ว find and replace `<your-github-account>` ให้เป็นชื่อ github account ของคุณคนที่ fork มา
-	(<your-github-account> MUST be lowercase)
+	1. เปิดโปรเจคของเราด้วย VSCode แล้ว find and replace `<your-github-account>` ให้เป็นชื่อ github account ของคุณคนที่ fork มา (<your-github-account> MUST be lowercase)
 	1. git add -> git commit -> git push
 
 ### STEP3.2: แก้ไข DATABASE_URL ให้เป็น url ของทีม
