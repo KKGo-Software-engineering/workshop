@@ -3,7 +3,7 @@
 สวัสดีชาวโลก 👋 ยินดีต้อนรับสู่ Software Engineering with Go ในส่วนของ Workshop
 
 ## สิ่งที่ต้องเตรียม
-- `brew install terraform`
+- `brew install terraform` (หรือติดตั้งตาม [terraform install-cli](https://learn.hashicorp.com/tutorials/terraform/install-cli))
 - `brew install kubectl`
 - `brew install awscli`
 - Install Container Management ([Rancher Desktop](https://rancherdesktop.io), Docker Desktop, Minikube, etc.)
