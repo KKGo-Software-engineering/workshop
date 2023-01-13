@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: workshop-hotfix
+spec:
+  selector:
+    matchLabels:
+      app: api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      imagePullSecrets:
+        - name: secret-docker
+      containers:
+      - name: gopher-api
+        image: ghcr.io/<your-github-account>/workshop:c9f6b38c1acd0a7153e42a03b577757262075eb3
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 1323
+        envFrom:
+          - configMapRef:
+              name: app-env-config
+          - secretRef:
+              name: secret-config
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 1323
+            httpHeaders:
+            - name: Authorization
+              value: 'basic YWRtaW46c2VjcmV0'
+          initialDelaySeconds: 3
+          periodSeconds: 60
+

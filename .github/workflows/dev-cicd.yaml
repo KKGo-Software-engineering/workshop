@@ -44,8 +44,7 @@ jobs:
           context: .
           tags: |
             ghcr.io/<your-github-account>/workshop:${{ env.GITHUB_SHA }}
-          # build on feature branches, push only on main branch
-          push: ${{ github.ref == 'refs/heads/main' }}
+          push: true
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
@@ -69,10 +68,20 @@ jobs:
           git config user.email "root@aorjoa.link"
         
       - name: change image tag to deploy dev
+        if: ${{ github.ref == 'refs/heads/main' }}
         run: |
           sed -i -E "s/ghcr.io\/<your-github-account>\/workshop.*$/ghcr.io\/<your-github-account>\/workshop:${GITHUB_SHA}/" infra/gitops/dev/deployment.yml
           git add infra/gitops/dev/deployment.yml
           git commit -m "[skip actions] 🤖 change dev docker image version to ${GITHUB_SHA}"
+          git pull --rebase
+          git push
+
+      - name: change image tag to deploy hotfix
+        if: ${{ github.ref == 'refs/heads/hotfix' }}
+        run: |
+          sed -i -E "s/ghcr.io\/<your-github-account>\/workshop.*$/ghcr.io\/<your-github-account>\/workshop:${GITHUB_SHA}/" infra/gitops/hotfix/deployment.yml
+          git add infra/gitops/hotfix/deployment.yml
+          git commit -m "[skip actions] 🤖 change hotfix docker image version to ${GITHUB_SHA}"
           git pull --rebase
           git push
 
