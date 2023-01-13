@@ -21,7 +21,7 @@ func RegRoute(cfg config.Config, logger *zap.Logger, db *sql.DB) *echo.Echo {
 	e.Use(middleware.BasicAuth(mw.Authenicate()))
 
 	hHealthChk := healthchk.New(db)
-	e.GET("/healthz", hHealthChk.Check) // TODO: did help need auth?
+	e.GET("/healthz", hHealthChk.Check)
 
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
