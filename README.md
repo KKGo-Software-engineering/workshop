@@ -83,7 +83,8 @@ References:
 
 ### STEP3.2: แก้ไข DATABASE_URL ให้เป็น url ของทีม
 	1. find and replace `<DB_CONNECTION_DEV>` ให้เป็น database url DEV connection ของทีม
-	1. find and replace `<DB_CONNECTION_PROD>` ให้เป็น database url PROD connection ของทีม
+	2. find and replace `<DB_CONNECTION_HOTFIX>` ให้เป็น database url HOTFIX connection ของทีม
+	3. find and replace `<DB_CONNECTION_PRD>` ให้เป็น database url PRODUCTION connection ของทีม
 
 ### STEP3.3: เพิ่มสมาชิกใน Github
 
@@ -154,6 +155,7 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 		- Application Name: `dev`
 		- Project Name: `default`
 		- SYNC POLICY: `Automatic`
+		- ✅ PRUNE RESOURCES
 		- Repository URL: `https://github.com/<your-account>/workshop`
 		- Revision: `main`
 		- Path: `infra/gitops/dev`
