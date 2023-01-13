@@ -163,8 +163,6 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 note: ตรวจสอบให้แน่ใจว่าที่ https://github.com/<your-account>?tab=packages ที่ workshop เป็น public (ไม่มีคำว่า private แสดงอยู่)
 
 
-		- [x] `AUTO-CREATE NAMESPACE`
-
 
 ### 💣 ใช้ AWS เสร็จแล้วอย่าลืม Destroy ทิ้งน๊า
 
