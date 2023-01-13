@@ -36,7 +36,7 @@ terraform init
 3. สั่งสร้าง Terraform สร้าง Resource ใน AWS
 
 ```console
-terraform apply -var group_name="group-<ID>"
+terraform apply -var group_name="group-<ID>" --auto-approve
 ```
 
 4. ตอบ `yes` กด enter แล้วรอไปกดกินข้าวก่อน
@@ -182,9 +182,8 @@ note: ตรวจสอบให้แน่ใจว่าที่ [https://g
 1. สั่งรัน Terraform Destroy
 
 ```console
-terraform destroy -var group_name="group-<ID>"
+terraform destroy -var group_name="group-<ID>" --auto-approve
 ```
-
 
 ## 🏁 Development เริ่มยังไง?
 
