@@ -38,5 +38,5 @@ spec:
             - name: Authorization
               value: 'basic YWRtaW46c2VjcmV0'
           initialDelaySeconds: 3
-          periodSeconds: 3
+          periodSeconds: 60
 
