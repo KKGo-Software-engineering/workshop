@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"net/http"
 
+	"github.com/kkgo-software-engineering/workshop/mlog"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,9 +17,11 @@ func New(db *sql.DB) *handler {
 }
 
 func (h handler) Check(c echo.Context) error {
+	logger := mlog.L(c)
+	logger.Info("health check")
 	err := h.db.Ping()
 	if err != nil {
-		return c.NoContent(http.StatusInternalServerError)
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
-	return c.NoContent(http.StatusOK)
+	return c.String(http.StatusOK, "hey Gopher!, I'm alive!")
 }
