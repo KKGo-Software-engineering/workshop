@@ -8,13 +8,21 @@ import (
 	"github.com/labstack/echo"
 )
 
-func GetAllPockets(c echo.Context, db *sql.DB) error {
+type handler struct {
+	db *sql.DB
+}
 
-	exps, err := database.GetAllPockets(db)
+func New(db *sql.DB) *handler {
+	return &handler{db}
+}
+
+func (h handler) GetAllPockets(c echo.Context) error {
+
+	_, err := database.GetAllPockets(h.db)
 
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err)
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, exps)
+	return c.String(http.StatusOK, "hey Gopher!, I'm alive!")
 }
