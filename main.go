@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/kkgo-software-engineering/workshop/config"
+	"github.com/kkgo-software-engineering/workshop/database"
 	"github.com/kkgo-software-engineering/workshop/router"
 	"go.uber.org/zap"
 
@@ -29,6 +30,8 @@ func main() {
 	if err != nil {
 		logger.Fatal("unable to configure database", zap.Error(err))
 	}
+
+	database.CreateTables(sql)
 
 	e := router.RegRoute(cfg, logger, sql)
 
