@@ -19,7 +19,7 @@ func New(db *sql.DB) *handler {
 func (h handler) GetAllPockets(c echo.Context) error {
 
 	id := c.Param("id")
-	pockets, err := database.GetAllPockets(h.db)
+	pockets, err := database.GetAllPockets(h.db, id)
 
 	if err != nil {
 		return c.String(http.StatusInternalServerError, err.Error())
