@@ -19,8 +19,8 @@ import (
 )
 
 func main() {
-	cfg := config.New().All()
 
+	cfg := config.New().All()
 	logger, err := zap.NewProduction()
 	if err != nil {
 		log.Fatal(err)

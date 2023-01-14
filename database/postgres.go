@@ -10,7 +10,7 @@ import (
 func createAccTable(db *sql.DB) {
 
 	initTable := `
-	CREATE TABLE "accounts" (
+	CREATE TABLE IF NOT EXISTS "accounts" (
 		"id" int4 NOT NULL DEFAULT nextval('account_id'::regclass),
 		"balance" float8 NOT NULL DEFAULT 0,
 		PRIMARY KEY ("id")
@@ -27,7 +27,7 @@ func createAccTable(db *sql.DB) {
 func createPocketTable(db *sql.DB) {
 
 	initTable := `
-	CREATE TABLE "pockets" (
+	CREATE TABLE IF NOT EXISTS "pockets" (
 		"id" int4 NOT NULL,
 		"name" TEXT NOT NULL,
 		"category" TEXT NOT NULL,
@@ -44,10 +44,10 @@ func createPocketTable(db *sql.DB) {
 
 }
 
-func GetAllPockets(db *sql.DB) ([]pocket.Pocket, error) {
+func GetAllPockets(db *sql.DB, id string) ([]pocket.Pocket, error) {
 
 	queryStatement := `
-	SELECT * FROM pockets
+	SELECT * FROM pockets Where id = $1
 	`
 
 	st, err := db.Prepare(queryStatement)
@@ -56,7 +56,7 @@ func GetAllPockets(db *sql.DB) ([]pocket.Pocket, error) {
 		return nil, err
 	}
 
-	rows, err2 := st.Query()
+	rows, err2 := st.Query(id)
 	if err2 != nil {
 		return nil, err
 	}

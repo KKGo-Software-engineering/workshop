@@ -18,6 +18,7 @@ func New(db *sql.DB) *handler {
 
 func (h handler) GetAllPockets(c echo.Context) error {
 
+	id := c.Param("id")
 	pockets, err := database.GetAllPockets(h.db)
 
 	if err != nil {
