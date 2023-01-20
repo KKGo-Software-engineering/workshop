@@ -176,6 +176,7 @@ note: ตรวจสอบให้แน่ใจว่าที่ [https://g
 - Application Name: `prod`
 - Project Name: `default`
 - SYNC POLICY: `Automatic`
+- ✅ PRUNE RESOURCES
 - Repository URL: `https://github.com/<your-account>/workshop`
 - Revision: `main`
 - Path: `infra/gitops/prd`
