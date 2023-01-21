@@ -12,7 +12,7 @@ const (
 )
 
 type CloudPocket struct {
-	ID        int       `json:"id"`
+	ID        int       `json:"id" pg:"pk,unique"`
 	Name      string    `json:"name"`
 	Category  string    `json:"category"`
 	Amount    big.Float `json:"amount"`

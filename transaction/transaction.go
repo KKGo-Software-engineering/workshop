@@ -22,7 +22,7 @@ const (
 )
 
 type Transaction struct {
-	ID                  int               `json:"id"`
+	ID                  int               `json:"id" pg:"pk,unique"`
 	Type                TransactionType   `json:"type"`
 	Status              TransactionStatus `json:"status"`
 	SourcePocketID      int               `json:"sourcePocketId"`
