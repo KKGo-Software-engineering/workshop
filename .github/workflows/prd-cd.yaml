@@ -15,7 +15,7 @@ on:
         description: '🎯 Deploy docker tag'
         required: true
         type: string
-        default: c9f6b38c1acd0a7153e42a03b577757262075eb3
+        default: 273cb5a5f71c57bd699bb965e9ba710a41dda8a1
 
 jobs:
   # ==============
